@@ -1,0 +1,54 @@
+---
+title: "Maksimumkan Kelajuan Web dengan Cloudflare Pages dan D1 Database"
+publishedAt: 2026-03-01
+isDraft: false
+description: "Bagaimana cara deploy laman web Astro-Edge ke Cloudflare Pages dan menggunakan D1 SQL Database untuk skalabiliti global."
+---
+
+Jika Astro 5 adalah enjin jet bagi projek kita, maka **Cloudflare** adalah bahan api berkelajuan tinggi yang memacu laman web ini ke tangan pengguna di seluruh dunia. Dalam fasa pembangunan Astro-Edge, kita memilih **Cloudflare Pages** sebagai platform hosting utama. Mengapa tidak server biasa? Mengapa tidak VPS? Jawapannya terletak pada satu perkataan: **The Edge**.
+
+### Apa Itu Cloudflare Pages?
+
+Cloudflare Pages adalah platform CI/CD yang dideploy terus ke rangkaian Cloudflare. Apabila kita melakukan "push" kod ke GitHub, Cloudflare akan membina (build) laman web kita dan menyebarkannya ke lebih 300 pusat data di seluruh dunia. Pengguna di Kuala Lumpur tidak perlu menunggu data dari San Francisco; mereka mendapat data dari server yang paling dekat dengan mereka.
+
+### Keajaiban D1 SQL Database
+
+Untuk fungsi e-commerce, kita memerlukan penyimpanan data dinamik. Contohnya: rekod jualan, data pelanggan, atau status stok produk. Selalunya, database SQL tradisional akan ditempatkan di satu lokasi pusat. Ini menyebabkan kelewatan (latency) jika pengguna berada jauh dari server database tersebut.
+
+**Cloudflare D1** menyelesaikan masalah ini. Ia adalah database SQL berasaskan SQLite yang dibina khas untuk Cloudflare Workers dan Pages. Ciri-ciri utama D1 yang kita gunakan dalam Astro-Edge:
+
+1. **Native Integration**: D1 boleh diakses secara langsung dari kod Astro melalui "Binding". Kita tidak perlu setup connection string yang rumit atau risau tentang kebocoran data.
+2. **Edge Scalability**: Walaupun data disimpan secara SQL, akses kepadanya adalah melalui rangkaian global Cloudflare. Ini memastikan transaksi data berlaku sekelip mata.
+3. **Kos Efektif**: Dengan model "pay-as-you-go", kita hanya bayar untuk apa yang kita gunakan. Sesuai untuk perniagaan yang baru bermula.
+
+### Cara Kita Mengintegrasikan D1 dalam Astro-Edge
+
+Dalam fail `wrangler.toml`, kita telah mendefinisikan binding untuk database kita:
+
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "astro_edge_db"
+database_id = "..."
+```
+
+Dalam kod Astro kita, kita boleh memanggil database ini dengan mudah untuk menyimpan maklumat pesanan selepas pembayaran CHIP berjaya:
+
+```typescript
+const db = context.locals.runtime.env.DB;
+await db.prepare('INSERT INTO orders (product_id, amount) VALUES (?, ?)').bind(id, price).run();
+```
+
+Ini membolehkan kita membina aplikasi e-commerce yang sangat dinamik tanpa perlu menguruskan server database sendiri yang mahal dan leceh.
+
+### Keselamatan Tanpa Kompromi
+
+Satu lagi sebab kita memilih Cloudflare adalah aspek keselamatan. Dengan integrasi **Cloudflare Turnstile**, kita melindungi borang "Contact Us" dan "Checkout" kita daripada serangan bot tanpa menyusahkan pengguna dengan "Captcha" yang menjengkelkan. 
+
+Selain itu, Cloudflare secara automatik menyediakan perlindungan DDoS yang bertaraf dunia. Blog dan kedai kita akan sentiasa "online" walaupun di bawah serangan trafik yang besar.
+
+### Kesimpulan: Infrastruktur untuk Masa Hadapan
+
+Membina laman web di tahun 2026 bukan sekadar tentang kod. Ia adalah tentang memilih ekosistem yang tepat. Dengan menggabungkan **Astro 5** dan **Cloudflare Pages + D1**, kita telah membina satu sistem yang bukan sahaja pantas, tetapi juga selamat dan sangat skalabel.
+
+Blog Astro-Edge kini sedia untuk menerima beribu-ribu pelawat tanpa sebarang masalah prestasi. Ini adalah kelebihan kompetitif yang sebenar dalam dunia digital hari ini.

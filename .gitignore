@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.astro/
+
+# Environment secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+
+# IDE / System
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Keystatic Local Files
+.keystatic/

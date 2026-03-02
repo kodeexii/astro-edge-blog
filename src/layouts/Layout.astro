@@ -1,0 +1,113 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Astro-Edge: High Performance Blog & E-commerce" } = Astro.props;
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="ms">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Bot Protection: Cloudflare Turnstile (Siapkan placeholder) -->
+		<!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> -->
+	</head>
+	<body class="layout">
+		<header class="layout__header">
+			<div class="container">
+				<nav class="nav">
+					<a href="/" class="nav__logo">ASTRO-EDGE</a>
+					<ul class="nav__list">
+						<li><a href="/blog" class="nav__link">Blog</a></li>
+						<li><a href="/products" class="nav__link">Produk</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main class="layout__main">
+			<slot />
+		</main>
+
+		<footer class="layout__footer">
+			<div class="container">
+				<div class="footer-grid">
+					<div class="footer-grid__col">
+						<p>&copy; {new Date().getFullYear()} Astro-Edge. Dibina dengan kelajuan cahaya.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<style is:global>
+			/* Layout Specific Styles using BEM */
+			.layout {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+
+			.layout__header {
+				padding-block: 1rem;
+				border-bottom: 1px solid var(--color-border);
+				position: sticky;
+				top: 0;
+				background: var(--color-bg);
+				z-index: 100;
+			}
+
+			.layout__main {
+				flex: 1;
+			}
+
+			.layout__footer {
+				padding-block: 2rem;
+				border-top: 1px solid var(--color-border);
+				background: #f8fafc;
+				font-size: var(--fs-s);
+				color: var(--color-text-light);
+			}
+
+			/* Simple Nav BEM */
+			.nav {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.nav__logo {
+				font-weight: 800;
+				font-size: var(--fs-l);
+				text-decoration: none;
+				color: var(--color-primary);
+				letter-spacing: -0.05em;
+			}
+
+			.nav__list {
+				display: flex;
+				gap: 1.5rem;
+				list-style: none;
+			}
+
+			.nav__link {
+				text-decoration: none;
+				color: var(--color-text);
+				font-weight: 500;
+				transition: color 0.2s;
+			}
+
+			.nav__link:hover {
+				color: var(--color-primary);
+			}
+		</style>
+	</body>
+</html>

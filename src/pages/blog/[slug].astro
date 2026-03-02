@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={`${post.data.title} | Astro-Edge`} description={post.data.description}>
+	<article class="post">
+		<header class="post__header">
+			<div class="container container--narrow">
+				<time datetime={post.data.publishedAt.toISOString()} class="post__date">
+					{post.data.publishedAt.toLocaleDateString('ms-MY', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					})}
+				</time>
+				<h1 class="post__title">{post.data.title}</h1>
+				{post.data.coverImage && (
+					<img src={post.data.coverImage} alt="" class="post__cover" />
+				)}
+			</div>
+		</header>
+
+		<div class="post__content">
+			<div class="container container--narrow">
+				<div class="prose">
+					<Content />
+				</div>
+			</div>
+		</div>
+	</article>
+</Layout>
+
+<style is:global>
+	/* Prose styling for Markdoc content */
+	.prose {
+		font-size: var(--fs-m);
+		line-height: 1.8;
+		color: var(--color-text);
+	}
+
+	.prose h2 { margin-top: 2.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; }
+	.prose h3 { margin-top: 2rem; }
+	.prose p { margin-bottom: 1.5rem; }
+	.prose ul, .prose ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+	.prose li { margin-bottom: 0.5rem; }
+	.prose strong { color: var(--color-primary-dark); }
+</style>
+
+<style>
+	.container--narrow {
+		max-width: 800px;
+	}
+
+	.post__header {
+		padding-block: 4rem 2rem;
+		text-align: center;
+	}
+
+	.post__date {
+		font-size: var(--fs-s);
+		color: var(--color-text-light);
+		font-weight: 600;
+		display: block;
+		margin-bottom: 1rem;
+	}
+
+	.post__title {
+		margin-bottom: 2rem;
+	}
+
+	.post__cover {
+		width: 100%;
+		border-radius: var(--radius-lg);
+		margin-top: 2rem;
+		box-shadow: 0 20px 40px -20px rgba(0,0,0,0.2);
+	}
+
+	.post__content {
+		padding-block: 2rem 6rem;
+	}
+</style>

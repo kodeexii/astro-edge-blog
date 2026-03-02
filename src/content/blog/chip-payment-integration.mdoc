@@ -1,0 +1,67 @@
+---
+title: "Membina Sistem E-commerce Tempatan dengan Integrasi CHIP"
+publishedAt: 2026-03-01
+isDraft: false
+description: "Panduan integrasi payment gateway CHIP untuk menerima pembayaran dalam Ringgit Malaysia secara selamat dan efisien."
+---
+
+Laman e-commerce yang hebat tidak akan lengkap tanpa sistem pembayaran yang dipercayai dan mesra pengguna tempatan. Dalam projek Astro-Edge, kita memilih **CHIP** sebagai rakan kongsi pembayaran kita. Mengapa CHIP? Dan bagaimana kita mengintegrasikannya secara teknikal dalam persekitaran Astro? Artikel ini akan menjawab persoalan tersebut secara mendalam.
+
+### Mengapa CHIP untuk Pasaran Malaysia?
+
+Bagi peniaga di Malaysia, CHIP menawarkan kelebihan yang kompetitif:
+
+1. **Sokongan FPX & Kad**: Pengguna boleh membayar menggunakan perbankan dalam talian (FPX), kad kredit, atau kad debit tempatan. Ini adalah kaedah pembayaran paling popular di negara kita.
+2. **Kadar Transaksi Rendah**: Berbanding dengan gateway antarabangsa, CHIP menawarkan kadar yang sangat mesra bajet untuk syarikat "startup" dan PKS.
+3. **Penyepaduan API yang Bersih**: Dokumentasi CHIP sangat mudah difahami oleh developer, membolehkan kita membina "checkout flow" yang tersuai sepenuhnya.
+
+### Teknikal: Integrasi dalam Astro
+
+Oleh kerana Astro 5 menggunakan **Astro Actions** dan **Edge Middleware**, proses integrasi menjadi lebih selamat. Kita tidak mahu API Key kita terdedah kepada pengguna (client-side). Segala urusan "handshake" dengan CHIP berlaku di server (server-side).
+
+Langkah-langkah yang kita ambil dalam Astro-Edge:
+
+**1. Simpan Kunci API dalam .env**
+Kita menggunakan fail `.env` (yang tidak sesekali dikomit ke GitHub) untuk menyimpan `CHIP_API_KEY`. Ini adalah kunci keselamatan utama kita.
+
+**2. Membina Checkout Session**
+Apabila pengguna klik butang "Beli Sekarang", kita akan memanggil satu API di Astro yang akan menghantar request ke CHIP. CHIP akan membalas dengan satu URL pembayaran yang unik. Kita kemudian akan "redirect" pengguna ke URL tersebut.
+
+```typescript
+// Contoh logik ringkas
+const response = await fetch('https://gate.chip-in.asia/api/v1/purchases/', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${process.env.CHIP_API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    products: [{ name: product.name, amount: product.price * 100 }],
+    success_redirect: 'https://astro-edge.pages.dev/success',
+    failure_redirect: 'https://astro-edge.pages.dev/failure'
+  })
+});
+```
+
+**3. Webhook: Pengesahan Automatik**
+Selepas pembayaran berjaya, CHIP akan menghantar "Webhook" (signal rahsia) ke server kita. Ini sangat penting! Kita tidak boleh hanya bergantung kepada redirect pengguna, kerana pengguna mungkin tutup browser sebelum sempat sampai ke halaman sukses. 
+
+Webhook membolehkan server kita mengemaskini status stok di Cloudflare D1 secara automatik dan menghantar emel pengesahan melalui **Resend API**.
+
+### Keselamatan: Cloudflare Turnstile
+
+Bagi mengelakkan serangan "carding" (bot yang mencuba ribuan nombor kad kredit pada borang checkout), kita mengintegrasikan **Cloudflare Turnstile**. Ini memastikan bahawa hanya manusia sebenar yang boleh memulakan transaksi pembayaran. Keselamatan pelanggan adalah keutamaan kita dalam Astro-Edge.
+
+### Pengalaman Pengguna (UX) yang Lancar
+
+Dalam e-commerce, sebarang "friction" atau gangguan semasa checkout akan menyebabkan pelanggan membatalkan pembelian. Oleh itu, kita membina halaman checkout yang:
+
+- **Mobile First**: Lebih 80% pembelian e-commerce di Malaysia dilakukan melalui telefon pintar. Butang pembayaran kita besar dan mudah ditekan.
+- **Fast Loading**: Oleh kerana Astro menghantar HTML yang ringan, halaman pembayaran akan terbuka sekelip mata. Pengguna tidak perlu menunggu lama.
+- **Visual Feedback**: Kita menggunakan animasi halus untuk menunjukkan proses sedang berlaku, memberikan keyakinan kepada pengguna bahawa sistem sedang bekerja.
+
+### Kesimpulan: Masa Depan E-commerce Tempatan
+
+Dengan menggabungkan kuasa **Astro 5**, kelajuan **Cloudflare**, dan kebolehpercayaan **CHIP**, kita telah membina satu ekosistem e-commerce yang bertaraf dunia namun tetap mesra tempatan. 
+
+Astro-Edge bukan sekadar blog; ia adalah satu platform perniagaan yang serius. Kita sedia untuk menerima tempahan pertama hari ini! Adakah anda bersedia untuk membawa bisnes anda ke peringkat seterusnya?

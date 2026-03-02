@@ -1,0 +1,45 @@
+---
+title: "Panduan Keystatic dan GitHub: Workflow Content CMS di Tahun 2026"
+publishedAt: 2026-03-01
+isDraft: false
+description: "Bagaimana cara setup dan mengurus kandungan laman web anda secara profesional dengan Keystatic CMS yang berasaskan Git."
+---
+
+Satu cabaran besar dalam pengurusan kandungan web (CMS) selama ini adalah isu "Data Ownership". Jika anda menggunakan servis CMS berasaskan awan (SaaS), data anda selalunya terperangkap dalam database pihak ketiga. Namun, dengan **Keystatic**, paradigma ini telah berubah sepenuhnya. Dalam artikel ini, kita akan meneroka bagaimana workflow **Keystatic + GitHub** memberikan kebebasan mutlak kepada pemilik laman web.
+
+### Apa Itu Keystatic?
+
+Keystatic adalah CMS "Local-first" atau "Git-based". Ia tidak mempunyai database SQL atau NoSQL sendiri. Sebaliknya, ia berfungsi sebagai antaramuka (UI) yang cantik untuk mengedit fail dalam repository GitHub anda. Apabila anda klik butang "Publish", Keystatic akan melakukan operasi `git commit` dan `git push` secara automatik bagi pihak anda.
+
+### Langkah-Langkah Workflow Profesional
+
+Untuk projek Astro-Edge, kita menggunakan workflow yang sangat stabil:
+
+1. **Definisi Skema (Schema)**: Dalam fail `keystatic.config.ts`, kita menentukan struktur data. Contohnya, koleksi `posts` memerlukan judul, tarikh, gambar, dan kandungan. Keystatic menggunakan TypeScript, jadi skema ini sangat selamat daripada ralat taip.
+2. **Penyimpanan Fail (Storage)**: Kita memilih `kind: 'github'`. Ini bermakna apabila kita sedang "on-the-go", kita boleh buka dashboard Keystatic (yang dideploy ke Cloudflare), tulis artikel, dan ia akan terus masuk ke repository GitHub.
+3. **Format Markdoc**: Kita memilih Markdoc berbanding Markdown biasa. Markdoc membolehkan kita memasukkan komponen Astro (seperti galeri gambar, butang beli, atau video YouTube) secara terus dalam editor teks tanpa perlu menulis kod HTML yang rumit.
+
+### Kelebihan Utama untuk Pemilik Bisnes
+
+Mengapa bos perlu peduli tentang sistem berasaskan Git ini?
+
+**1. Keselamatan & Versi Kandungan**
+Sama seperti kod program, setiap perubahan pada artikel anda mempunyai "history". Jika anda tersilap padam satu perenggan penting, kita boleh melihat sejarah commit di GitHub dan kembalikan versi asal. Ini mustahil dilakukan dalam kebanyakan CMS tradisional tanpa backup database yang rumit.
+
+**2. Tiada Lock-in**
+Katakanlah suatu hari nanti anda tidak mahu lagi menggunakan Keystatic. Tiada masalah! Semua kandungan anda adalah fail teks `.mdoc` atau `.json` yang tersimpan rapi dalam folder `src/content/`. Anda boleh membukanya dengan mana-mana editor teks atau pindah ke framework lain dengan mudah. Anda memiliki data anda 100%.
+
+**3. Workflow Collaborative**
+Jika anda mempunyai pasukan penulis, mereka boleh menulis di cawangan (branch) yang berbeza. Anda boleh menyemak artikel mereka melalui GitHub Pull Requests sebelum ia disiarkan ke laman web utama. Ini adalah workflow "editorial" yang sangat profesional, sama seperti yang digunakan oleh syarikat teknologi gergasi.
+
+### Integrasi dengan Astro 5 Content Layer
+
+Astro 5 membawa Keystatic ke tahap yang lebih tinggi melalui **Content Layer**. Apabila kandungan baru dimasukkan ke GitHub, Astro akan mengesan perubahan tersebut semasa build time. Ia akan "sync" fail-fail tersebut dan menyediakan data tersebut dalam bentuk objek JavaScript yang pantas.
+
+Kita tidak perlu lagi melakukan "fetch" API yang memakan masa semasa pengguna melawat laman web. Data sudah sedia ada dalam format yang paling optimum.
+
+### Kesimpulan
+
+Keystatic bukan sekadar alat, ia adalah satu falsafah baru dalam pengurusan kandungan. Ia menggabungkan kemudahan penggunaan WordPress dengan kekuatan teknikal GitHub. Bagi projek Astro-Edge, ini bermakna kita boleh fokus kepada kualiti penulisan tanpa perlu risau tentang infrastruktur database yang mahal atau lembap.
+
+Jika anda ingin membina blog atau laman e-commerce yang serius di tahun 2026, gabungan Keystatic dan GitHub adalah "gold standard" yang sukar dicabar.

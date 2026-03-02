@@ -1,0 +1,65 @@
+---
+title: "Fluid Typography dan BEM: Rahsia Design Sistem yang Skalabel"
+publishedAt: 2026-03-01
+isDraft: false
+description: "Bagaimana cara kita membina sistem reka bentuk yang responsif dan fluid menggunakan teknik CSS moden dalam Astro-Edge."
+---
+
+Laman web yang cantik tidak bermakna jika ia tidak selesa dibaca. Dalam projek Astro-Edge, kita menerapkan dua teknik CSS yang sangat berpengaruh dalam industri reka bentuk web moden: **Fluid Typography** dan **BEM (Block Element Modifier)**. Artikel ini akan menjelaskan bagaimana dua teknik ini menjadikan laman web kita nampak premium dan sangat mudah untuk diselenggara (maintain).
+
+### Apa Itu Fluid Typography?
+
+Kebanyakan laman web tradisional menggunakan "Media Queries" untuk menukar saiz tulisan. Contohnya: `font-size: 16px` untuk telefon, dan `font-size: 20px` untuk desktop. Masalahnya, terdapat banyak peranti dengan saiz skrin yang berada di antara kedua-duanya (seperti tablet atau telefon besar). Tulisan selalunya nampak "melompat" apabila saiz skrin berubah.
+
+**Fluid Typography** menggunakan fungsi CSS `clamp()` untuk menjana saiz tulisan yang berubah secara lancar mengikut lebar skrin. Dalam fail `global.css` kita, kita telah menetapkan:
+
+```css
+--fs-m: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+```
+
+Dengan satu baris kod ini, saiz tulisan Medium kita akan berubah secara automatik daripada 16px kepada 18px secara linear. Tiada lagi tulisan yang nampak terlalu kecil pada skrin telefon atau terlalu besar pada desktop. Semuanya nampak "natural" dan profesional.
+
+### Mengapa Kita Memilih BEM?
+
+Apabila projek Astro-Edge semakin besar, kod CSS kita boleh menjadi tidak teratur (spaghetti code). **BEM** adalah satu cara penamaan (naming convention) yang membantu kita mengelakkan masalah ini. Struktur BEM adalah seperti berikut:
+
+- **Block**: Entiti utama (cth: `.card`)
+- **Element**: Bahagian di dalam block tersebut (cth: `.card__title`)
+- **Modifier**: Variasi bagi block tersebut (cth: `.card--highlighted`)
+
+Dalam Astro, BEM sangat berkuasa kerana ia memberikan kita kejelasan. Apabila saya melihat kod `.nav__link`, saya tahu dengan serta-merta bahawa ia adalah pautan di dalam blok navigasi. Ini memudahkan developer lain (atau anda sendiri pada masa hadapan) untuk mengedit kod tanpa takut ia akan merosakkan bahagian lain di laman web.
+
+### Integrasi dengan Astro Components
+
+Kehebatan sebenar teknik ini terserlah apabila kita membina komponen Astro. Lihat contoh komponen `Button.astro` kita:
+
+```astro
+---
+const { variant = 'primary', isFullWidth = false } = Astro.props;
+---
+<button class={`button button--${variant} ${isFullWidth ? 'button--full-width' : ''}`}>
+  <slot />
+</button>
+```
+
+CSS kita dalam `global.css` telah sedia ada menyokong kelas-kelas ini:
+
+```css
+.button { ... }
+.button--primary { ... }
+.button--full-width { ... }
+```
+
+Ini membolehkan kita menggunakan komponen yang sama di pelbagai tempat dengan gaya yang konsisten, namun masih fleksibel untuk diubah suai melalui "Modifier".
+
+### Kelebihan Prestasi: Zero External Fonts
+
+Dalam Astro-Edge, kita juga mengambil keputusan drastik untuk tidak menggunakan font luaran seperti Google Fonts. Mengapa? Kerana setiap request ke server font luaran akan melambatkan loading laman web anda (font flicker/FOUT).
+
+Sebaliknya, kita menggunakan **System Font Stack**. Ini bermakna laman web kita akan menggunakan font yang paling optimum bagi setiap peranti pengguna (Apple, Android, Windows, Linux). Hasilnya? Masa loading yang hampir sifar dan kejelasan teks yang luar biasa.
+
+### Kesimpulan: Kualiti pada Perincian
+
+Reka bentuk web bukan sekadar tentang warna dan gambar. Ia adalah tentang sistem. Dengan menggabungkan **Fluid Typography** untuk keselesaan visual dan **BEM** untuk kualiti kod, Astro-Edge berdiri sebagai contoh laman web yang dibina dengan penuh ketelitian.
+
+Bagi pengguna, mereka hanya nampak laman web yang cantik dan laju. Bagi kita sebagai pembangun, kita tahu bahawa di bawahnya terdapat sistem yang kukuh, skalabel, dan bersedia untuk berkembang mengikut keperluan perniagaan.
