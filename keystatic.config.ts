@@ -1,13 +1,9 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  // Mod penyimpanan: Menggunakan GitHub untuk "Data Ownership" 100%
+  // Mod penyimpanan: Lokal untuk pembangunan pantas tanpa GitHub
   storage: {
-    kind: 'github',
-    repo: {
-      owner: 'kodeexii', // Ganti dengan username GitHub anda
-      name: 'astro-edge-blog' // Ganti dengan nama repository anda
-    },
+    kind: 'local',
   },
 
   collections: {
@@ -20,8 +16,9 @@ export default config({
       slugField: 'title',
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
+      entryLayout: 'content',
       schema: {
-        title: fields.string({ label: 'Title' }),
+        title: fields.slug({ name: { label: 'Title' } }), // Gunakan fields.slug untuk sinkronkan tajuk dan nama fail
         publishedAt: fields.date({ 
           label: 'Published Date',
           description: 'Tarikh artikel ini diterbitkan'
@@ -53,8 +50,9 @@ export default config({
       slugField: 'title',
       path: 'src/content/pages/*',
       format: { contentField: 'content' },
+      entryLayout: 'content',
       schema: {
-        title: fields.string({ label: 'Title' }),
+        title: fields.slug({ name: { label: 'Title' } }),
         description: fields.text({ label: 'SEO Description', multiline: true }),
         content: fields.markdoc({ label: 'Content' }),
       },
@@ -69,7 +67,7 @@ export default config({
       path: 'src/content/legals/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.string({ label: 'Title' }),
+        title: fields.text({ label: 'Title' }),
         lastUpdated: fields.date({ label: 'Last Updated' }),
         content: fields.markdoc({ label: 'Content' }),
       },
@@ -85,7 +83,7 @@ export default config({
       path: 'src/content/products/*',
       format: { data: 'json' },
       schema: {
-        name: fields.string({ label: 'Product Name' }),
+        name: fields.text({ label: 'Product Name' }),
         price: fields.number({ 
           label: 'Price (MYR)',
           description: 'Harga dalam Ringgit Malaysia'

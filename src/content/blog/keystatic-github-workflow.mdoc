@@ -1,10 +1,12 @@
 ---
-title: "Panduan Keystatic dan GitHub: Workflow Content CMS di Tahun 2026"
+title: 'Panduan Keystatic dan GitHub: Workflow Content CMS di Tahun 2026'
 publishedAt: 2026-03-01
 isDraft: false
-description: "Bagaimana cara setup dan mengurus kandungan laman web anda secara profesional dengan Keystatic CMS yang berasaskan Git."
+coverImage: /images/blog/keystatic-github-workflow/coverImage.webp
+description: >-
+  Bagaimana cara setup dan mengurus kandungan laman web anda secara profesional
+  dengan Keystatic CMS yang berasaskan Git.
 ---
-
 Satu cabaran besar dalam pengurusan kandungan web (CMS) selama ini adalah isu "Data Ownership". Jika anda menggunakan servis CMS berasaskan awan (SaaS), data anda selalunya terperangkap dalam database pihak ketiga. Namun, dengan **Keystatic**, paradigma ini telah berubah sepenuhnya. Dalam artikel ini, kita akan meneroka bagaimana workflow **Keystatic + GitHub** memberikan kebebasan mutlak kepada pemilik laman web.
 
 ### Apa Itu Keystatic?
@@ -16,8 +18,8 @@ Keystatic adalah CMS "Local-first" atau "Git-based". Ia tidak mempunyai database
 Untuk projek Astro-Edge, kita menggunakan workflow yang sangat stabil:
 
 1. **Definisi Skema (Schema)**: Dalam fail `keystatic.config.ts`, kita menentukan struktur data. Contohnya, koleksi `posts` memerlukan judul, tarikh, gambar, dan kandungan. Keystatic menggunakan TypeScript, jadi skema ini sangat selamat daripada ralat taip.
-2. **Penyimpanan Fail (Storage)**: Kita memilih `kind: 'github'`. Ini bermakna apabila kita sedang "on-the-go", kita boleh buka dashboard Keystatic (yang dideploy ke Cloudflare), tulis artikel, dan ia akan terus masuk ke repository GitHub.
-3. **Format Markdoc**: Kita memilih Markdoc berbanding Markdown biasa. Markdoc membolehkan kita memasukkan komponen Astro (seperti galeri gambar, butang beli, atau video YouTube) secara terus dalam editor teks tanpa perlu menulis kod HTML yang rumit.
+1. **Penyimpanan Fail (Storage)**: Kita memilih `kind: 'github'`. Ini bermakna apabila kita sedang "on-the-go", kita boleh buka dashboard Keystatic (yang dideploy ke Cloudflare), tulis artikel, dan ia akan terus masuk ke repository GitHub.
+1. **Format Markdoc**: Kita memilih Markdoc berbanding Markdown biasa. Markdoc membolehkan kita memasukkan komponen Astro (seperti galeri gambar, butang beli, atau video YouTube) secara terus dalam editor teks tanpa perlu menulis kod HTML yang rumit.
 
 ### Kelebihan Utama untuk Pemilik Bisnes
 

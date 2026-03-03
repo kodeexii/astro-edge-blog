@@ -1,0 +1,77 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const pages = await getCollection('pages');
+	return pages.map((page) => ({
+		params: { slug: page.slug },
+		props: { page },
+	}));
+}
+
+const { slug } = Astro.params;
+
+// Cuba ambil page dari props (jika statik) atau fetch baru (jika SSR)
+let page = Astro.props.page;
+if (!page) {
+	page = await getEntry('pages', slug as string);
+}
+
+// Jika page masih tiada, hantar 404
+if (!page) {
+	return Astro.redirect('/404');
+}
+
+const { Content } = await page.render();
+---
+
+<Layout title={`${page.data.title} | Astro-Edge`} description={page.data.description}>
+	<section class="section">
+		<div class="container container--narrow">
+			<header class="page-header">
+				<h1 class="page-header__title">{page.data.title}</h1>
+			</header>
+			
+			<div class="page-content">
+				<div class="prose">
+					<Content />
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.container--narrow {
+		max-width: 800px;
+	}
+
+	.page-header {
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+
+	.page-header__title {
+		font-size: var(--fs-xxl);
+		color: var(--color-primary);
+	}
+
+	.page-content {
+		padding-block: 2rem;
+	}
+</style>
+
+<style is:global>
+	/* Prose styling for pages content */
+	.prose {
+		font-size: var(--fs-m);
+		line-height: 1.8;
+	}
+
+	.prose h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+	.prose p { margin-bottom: 1.5rem; }
+	.prose ul, .prose ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+</style>

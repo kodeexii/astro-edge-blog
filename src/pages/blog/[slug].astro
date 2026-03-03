@@ -1,7 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+export const prerender = true;
+
+// Jika kita mahu ia tetap statik (pilihan), kita kekalkan getStaticPaths
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -10,7 +13,20 @@ export async function getStaticPaths() {
 	}));
 }
 
-const { post } = Astro.props;
+// Ambil slug dari params
+const { slug } = Astro.params;
+
+// Cuba ambil post dari props (jika statik) atau fetch baru (jika SSR)
+let post = Astro.props.post;
+if (!post) {
+	post = await getEntry('blog', slug as string);
+}
+
+// Jika post masih tiada, hantar 404
+if (!post) {
+	return Astro.redirect('/404');
+}
+
 const { Content } = await post.render();
 ---
 

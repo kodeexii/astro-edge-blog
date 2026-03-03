@@ -1,75 +1,77 @@
-🧠 Project Context: Astro-Edge
+# 🚀 Astro-Edge: Project Context & Status
 
-Fail ini adalah rujukan utama untuk status semasa projek. Sila kemas kini fail ini selepas setiap perubahan besar untuk memastikan "konteks" sentiasa segar.
+Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini fail ini selepas setiap perubahan besar untuk memastikan kelangsungan konteks.
 
-1. Project Identity
+---
 
-Name: Astro-Edge (Blog + E-commerce)
+## 🆔 1. Identiti Projek
+- **Nama Projek:** Astro-Edge (Blog + E-commerce)
+- **Framework:** Astro 5.x (Hybrid Mode)
+- **Deployment:** Cloudflare Pages (Pending)
+- **Source Control:** GitHub (`kodeexii/astro-edge-blog`)
+- **URL Pembangunan:** `http://localhost:4321`
 
-Framework: Astro 5.x
+---
 
-Deployment: Cloudflare Pages
+## 🎯 2. Konteks Pembangunan Aktif
+- **Fokus Sekarang:** Pembangunan Lokal & Strategi Kandungan.
+- **Strategi Storage:** 
+  - **Lokal:** Untuk pembangunan pantas (Sekarang).
+  - **GitHub:** Untuk production & CMS di awan (Akan datang).
+- **Tugasan Seterusnya:** 
+  - [ ] Setup GitHub Repository & Remote.
+  - [ ] Implementasi Homepage Singleton di Keystatic.
+  - [ ] Membina Halaman Butiran Produk (`products/[id].astro`).
+  - [ ] Integrasi Pembayaran CHIP.
+- **Kemas Kini Terakhir:** 2026-03-01
 
-Primary URL: (Akan dikemas kini selepas deployment pertama)
+---
 
-2. Active Development Context
+## 🔐 3. Senarai Semak Persekitaran (Secrets)
+*Sila pastikan rahsia berikut dikonfigurasi dalam fail `.env` (Rujuk `.env.example`):*
+- [ ] `CHIP_API_KEY` (Payment Gateway)
+- [ ] `RESEND_API_KEY` (Email Service)
+- [ ] `TURNSTILE_SITE_KEY` (Bot Protection)
+- [ ] `TURNSTILE_SECRET_KEY` (Bot Protection)
+- [ ] `KEYSTATIC_GITHUB_CLIENT_ID` (Keystatic Cloud/GitHub Auth)
+- [ ] `KEYSTATIC_GITHUB_CLIENT_SECRET` (Keystatic Cloud/GitHub Auth)
 
-Current Focus: Initial Project Setup & Core Configuration.
+---
 
-Next Task: Build src/layouts/Layout.astro & Base Components.
+## 📏 4. Konvensyen Kod (The Rules)
+- **Styles:** Modular BEM (Block Element Modifier) + Scoped CSS.
+- **Fluid Design:** Wajib guna `clamp()` dan `calc()` (Definisi dalam `global.css`).
+- **Typography:** Relatif kepada `--fs-m`. Skala: `xxl`, `xl`, `l`, `m`, `s`, `xs`, `xxs`.
+- **Font Stack:** **Zero External Requests**. Hanya gunakan *System Font Stack*.
+- **Components:** UI components dalam `src/components/ui/`.
+- **Database:** Cloudflare D1 (SQL) - Binding Name: `DB`.
+- **Hybrid Strategy:** Mod `output: server` + `export const prerender = true` untuk halaman statik.
 
-Last Modified: 2024-05-20
+---
 
-3. Environment & Secrets Checklist
+## 🗺️ 5. Pemetaan Direktori
+- 📂 `src/content/blog/` — Artikel Markdoc (`.mdoc`).
+- 📂 `src/content/products/` — Katalog Produk (JSON).
+- 📂 `src/content/pages/` — Halaman Umum (About, etc).
+- 📂 `src/content/legals/` — Polisi & Terma (Markdoc).
+- 📂 `src/styles/` — `global.css` & Variables.
+- 📂 `src/pages/` — Routing & Acuan (Layouts).
 
-Sila pastikan secret berikut telah dikonfigurasi dalam Cloudflare Dashboard (Wrangler) dan .env:
+---
 
-[ ] CHIP_API_KEY (Payment Gateway)
+## 📈 6. Log Kemajuan (Progress Log)
+- [x] PRD finalized (v1.1).
+- [x] Tech stack: Astro 5, Cloudflare, Keystatic, CHIP.
+- [x] Style: BEM + Fluid Typography.
+- [x] Keystatic Schema (Blog, Pages, Products, Legals).
+- [x] Core config: `package.json`, `wrangler.toml`, `astro.config.mjs`.
+- [x] Folder structure initialized.
+- [x] `Layout.astro` dengan Navigasi Dinamik.
+- [x] Keystatic 'local' storage mode diaktifkan.
+- [x] Content Layer synchronized dengan Keystatic.
+- [x] 5 Blog posts "Deep Dive" & About page generated.
+- [x] Hybrid Rendering (Prerendering) diaktifkan untuk Blog & Pages.
+- [x] Git Lokal: `.gitignore` & Initial Commit.
 
-[ ] RESEND_API_KEY (Email Service)
-
-[ ] TURNSTILE_SITE_KEY (Bot Protection)
-
-[ ] TURNSTILE_SECRET_KEY (Bot Protection)
-
-4. Coding Conventions (The Rules)
-
-Styles: Modular BEM (Block Element Modifier) + Scoped CSS.
-
-Mixing Technique: Gunakan class global (cth: .button) untuk rupa, dan class lokal (cth: .card__button) untuk susun atur.
-
-Fluid Design: Wajib guna clamp() dan calc() untuk tipografi dan spacing.
-
-Typography Scale: Menggunakan skala relatif kepada --fs-m (Medium). Terma: xxl, xl, l, m, s, xs, xxs.
-
-Font: Hanya gunakan System Font Stack (Zero external font requests).
-
-Components: UI components dalam src/components/ui/. Astro files sebagai pilihan utama.
-
-Database: Cloudflare D1 (SQL) - Binding Name: DB.
-
-Type Safety: Strict TypeScript & Zod validation untuk semua input data.
-
-5. Directory Mapping
-
-src/content/blog/: Markdoc files untuk artikel.
-
-src/content/products/: JSON files untuk katalog produk.
-
-src/content/pages/: Markdoc untuk general pages (About, etc).
-
-src/content/legals/: Markdoc untuk polisi (Privacy, Terms).
-
-src/styles/global.css: Definisi variables dan global BEM blocks.
-
-6. Progress Log (Recent Changes)
-
-[x] PRD finalized (v1.1).
-
-[x] Tech stack selected (Astro, Cloudflare, Keystatic, CHIP).
-
-[x] Style Convention updated: BEM + Fluid Typography Scale.
-
-[x] Keystatic Schema defined (including Legals & Pages collections).
-
-[x] Core config files generated (package.json, wrangler.toml, etc).
+---
+> *Nota: Mat Gem (Gemini CLI) sentiasa memantau fail ini untuk memastikan arahan dipatuhi.*

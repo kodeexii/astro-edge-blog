@@ -6,6 +6,23 @@ interface Props {
 
 const { title, description = "Astro-Edge: High Performance Blog & E-commerce" } = Astro.props;
 import '../styles/global.css';
+
+// --- Definisi Menu ---
+const navItems = [
+	{ label: 'Utama', href: '/' },
+	{ label: 'Blog', href: '/blog' },
+	{ label: 'Produk', href: '/products' },
+	{ label: 'Mengenai Kami', href: '/about' },
+];
+
+// Dapatkan path sekarang untuk letak class "active"
+const { pathname } = Astro.url;
+// Fungsi pembantu untuk semak path aktif
+const isActive = (path: string) => {
+	if (path === '/' && pathname === '/') return true;
+	if (path !== '/' && pathname.startsWith(path)) return true;
+	return false;
+};
 ---
 
 <!doctype html>
@@ -17,9 +34,6 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		
-		<!-- Bot Protection: Cloudflare Turnstile (Siapkan placeholder) -->
-		<!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> -->
 	</head>
 	<body class="layout">
 		<header class="layout__header">
@@ -27,8 +41,16 @@ import '../styles/global.css';
 				<nav class="nav">
 					<a href="/" class="nav__logo">ASTRO-EDGE</a>
 					<ul class="nav__list">
-						<li><a href="/blog" class="nav__link">Blog</a></li>
-						<li><a href="/products" class="nav__link">Produk</a></li>
+						{navItems.map((item) => (
+							<li>
+								<a 
+									href={item.href} 
+									class={`nav__link ${isActive(item.href) ? 'nav__link--active' : ''}`}
+								>
+									{item.label}
+								</a>
+							</li>
+						))}
 					</ul>
 				</nav>
 			</div>
@@ -102,11 +124,20 @@ import '../styles/global.css';
 				text-decoration: none;
 				color: var(--color-text);
 				font-weight: 500;
-				transition: color 0.2s;
+				transition: all 0.2s;
+				padding: 0.5rem 0.75rem;
+				border-radius: var(--radius-sm);
 			}
 
 			.nav__link:hover {
 				color: var(--color-primary);
+				background-color: #f1f5f9;
+			}
+
+			.nav__link--active {
+				color: var(--color-primary);
+				font-weight: 700;
+				background-color: #f1f5f9;
 			}
 		</style>
 	</body>
