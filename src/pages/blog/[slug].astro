@@ -35,11 +35,7 @@ const { Content } = await post.render();
 		<header class="post__header">
 			<div class="container container--narrow">
 				<time datetime={post.data.publishedAt.toISOString()} class="post__date">
-					{post.data.publishedAt.toLocaleDateString('ms-MY', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-					})}
+					{post.data.publishedAt.getUTCDate()} {["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"][post.data.publishedAt.getUTCMonth()]} {post.data.publishedAt.getUTCFullYear()}
 				</time>
 				<h1 class="post__title">{post.data.title}</h1>
 				{post.data.coverImage && (

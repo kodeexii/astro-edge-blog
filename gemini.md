@@ -18,6 +18,8 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - **Strategi Storage:** 
   - **Lokal:** Untuk pembangunan pantas (Sekarang).
   - **GitHub:** Untuk production & CMS di awan (Akan datang).
+- **Tugasan Rutin:**
+  - [ ] Jana 1 entri blog "Daily Recap" di akhir setiap sesi pembangunan.
 - **Tugasan Seterusnya:** 
   - [ ] Setup GitHub Repository & Remote.
   - [ ] Implementasi Homepage Singleton di Keystatic.
@@ -72,6 +74,10 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - [x] 5 Blog posts "Deep Dive" & About page generated.
 - [x] Hybrid Rendering (Prerendering) diaktifkan untuk Blog & Pages.
 - [x] Git Lokal: `.gitignore` & Initial Commit.
+- [x] Template dinamik `src/pages/[slug].astro` untuk Koleksi Pages.
+- [x] Sistem "Datetime" & UTC Sorting diaktifkan untuk Blog.
+- [x] Paparan Dashboard Keystatic diperkemas dengan kolom maklumat.
+- [x] Daily Recap #1 (Storytelling Style) diterbitkan.
 
 ---
 > *Nota: Mat Gem (Gemini CLI) sentiasa memantau fail ini untuk memastikan arahan dipatuhi.*

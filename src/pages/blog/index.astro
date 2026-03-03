@@ -10,6 +10,8 @@ const posts = await getCollection('blog', ({ data }) => {
 
 // Susun ikut tarikh terbaru
 posts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
 ---
 
 <Layout title="Blog | Astro-Edge" description="Baca artikel terbaru kami tentang teknologi dan perniagaan.">
@@ -28,11 +30,7 @@ posts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
 						)}
 						<div class="blog-card__content">
 							<time datetime={post.data.publishedAt.toISOString()} class="blog-card__date">
-								{post.data.publishedAt.toLocaleDateString('ms-MY', {
-									year: 'numeric',
-									month: 'long',
-									day: 'numeric',
-								})}
+								{post.data.publishedAt.getUTCDate()} {months[post.data.publishedAt.getUTCMonth()]} {post.data.publishedAt.getUTCFullYear()}
 							</time>
 							<h2 class="blog-card__title">
 								<a href={`/blog/${post.slug}`} class="blog-card__link">{post.data.title}</a>

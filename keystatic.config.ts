@@ -17,11 +17,12 @@ export default config({
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
+      columns: ['title', 'publishedAt'], // Tambah kolom Title dan Tarikh di sini
       schema: {
         title: fields.slug({ name: { label: 'Title' } }), // Gunakan fields.slug untuk sinkronkan tajuk dan nama fail
-        publishedAt: fields.date({ 
+        publishedAt: fields.datetime({ 
           label: 'Published Date',
-          description: 'Tarikh artikel ini diterbitkan'
+          description: 'Tarikh dan masa artikel ini diterbitkan'
         }),
         isDraft: fields.checkbox({ 
           label: 'Draft', 
@@ -51,6 +52,7 @@ export default config({
       path: 'src/content/pages/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
+      columns: ['title'],
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
         description: fields.text({ label: 'SEO Description', multiline: true }),
@@ -66,6 +68,7 @@ export default config({
       slugField: 'title',
       path: 'src/content/legals/*',
       format: { contentField: 'content' },
+      columns: ['title', 'lastUpdated'],
       schema: {
         title: fields.text({ label: 'Title' }),
         lastUpdated: fields.date({ label: 'Last Updated' }),
@@ -82,6 +85,7 @@ export default config({
       slugField: 'name',
       path: 'src/content/products/*',
       format: { data: 'json' },
+      columns: ['name', 'price', 'stock'],
       schema: {
         name: fields.text({ label: 'Product Name' }),
         price: fields.number({ 

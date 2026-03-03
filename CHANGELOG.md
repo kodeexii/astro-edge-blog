@@ -21,6 +21,13 @@ Semua perubahan penting pada projek ini akan didokumentasikan dalam fail ini. Fo
 - **Vite External Issue:** Penambahan `noExternal` dalam `astro.config.mjs` untuk mengelakkan ralat `fields.string is not a function`.
 - **Keystatic Schema:** Penyelarasan `fields.slug` dan `entryLayout` untuk memastikan `title` tersimpan dalam frontmatter.
 - **Routing:** Pembetulan logik pengambilan data (SSR fallback) dalam templat slug untuk mengelakkan ralat `render`.
+- **Timezone Shift:** Penggunaan kaedah UTC (`getUTCDate`, `getUTCMonth`) dalam paparan tarikh untuk mengelakkan ralat anjakan hari (+8 jam).
+- **Keystatic UI:** Penambahan kolom maklumat (Title, Date, Price, Stock) dalam paparan senarai koleksi Dashboard.
+
+### 📝 Kandungan (Content)
+- **Daily Recap #1:** Entri blog pertama menceritakan perjalanan Hari ke-1 dengan gaya penulisan "Den & Mat Gem".
+- **Halaman About:** Kandungan rasmi mengenai visi Astro-Edge dijana.
+- **Datetime Migration:** Semua artikel blog dikemas kini dari format `date` ke `datetime` untuk penyusunan yang lebih tepat.
 
 ---
 

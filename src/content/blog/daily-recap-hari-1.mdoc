@@ -1,0 +1,66 @@
+---
+title: 'Daily Recap #1: Memulakan Enjin Astro-Edge dari Kosong ke Hero'
+publishedAt: 2026-03-02T22:00:00.000Z
+isDraft: false
+description: >-
+  Kisah hari pertama membina Astro-Edge. Dari setup folder, melanggar ralat
+  Keystatic, sehinggalah berjaya jana 5 artikel pertama.
+---
+---
+
+Apa khabar semua! Hari ini Ahad, 1 Mac 2026, dan ia merupakan hari yang sangat produktif. Den baru sahaja memulakan satu projek yang den namakan sebagai **Astro-Edge**. Matlamatnya? Membina platform blog dan e-commerce yang bukan sahaja laju, tapi "future-proof".
+
+Jom den kongsikan apa yang berlaku di "sebalik tabir" hari ini.
+
+### Memasang "Skeletal" Projek
+
+Den mulakan hari ini dengan folder yang kosong. Menggunakan **Astro 5**, den minta Mat Gem (pembanti AI dem - Gemini CLI) membina struktur asas. Kalau dalam WordPress, kita ada tema dan plugin, dalam Astro kita ada `src/pages` untuk routing dan `src/content` untuk menyimpan segala "harta karun" teks kita.
+
+Satu perkara yang den titikberatkan adalah **Fluid Design**. Den tak nak guna font yang kaku. Den minta Mat Gem gunakan formula CSS `clamp()` supaya tulisan nampak premium, tak kira anda buka guna iPhone mini atau monitor 4K.
+
+### Rintangan Pertama: Skrin Putih Keystatic
+
+Tak ada projek yang bermula tanpa ralat, kan? Bila Mat Gem pasang **Keystatic CMS**, cubaan den untuk akses page keystatic disambut dengan skrin putih yang membisu. Menurut Mat Gem, ada isu komunikasi antara Astro 5 (Vite) dan cara Keystatic memproses modulnya.
+
+Penyelesaiannya? Mat Gem perbaiki dengan membuat konfigurasi agar Vite tidak "externalize" Keystatic dalam fail `astro.config.mjs`:
+
+```javascript
+vite: {
+  ssr: {
+    noExternal: ['@keystatic/core', '@keystatic/astro']
+  }
+}
+```
+
+Selepas pembetulan ini, Dashboard Keystatic pun terus muncul dengan gah!
+
+### Kilang Kandungan: 5 Artikel dalam Satu Sesi
+
+Selepas enjin dah hidup, den pun terus "lenjan" dengan meminta Mat Gem menjana 5 artikel teknikal yang mendalam sebagai sample blog post. Post post yang dijana Mat Gem membincangkan pasal Cloudflare D1, sistem BEM, sehinggalah ke integrasi pembayaran CHIP. Den sendiri belum sempat nak validate hasil karya Mat Gem itu lagi.
+
+Den juga sempat meminta Mat Gem siapkan halaman **About Us** yang menceritakan visi Astro-Edge untuk memperkasakan ekonomi digital lokal. Semuanya menggunakan format **Markdoc**, yang membolehkan den selitkan komponen interaktif di celah-celah perenggan nanti, jika ada keperluan.
+
+### Rahsia Kelajuan: Hybrid Rendering
+
+Ini bahagian yang paling "best". Walaupun projek ini menggunakan mod pelayan (`output: server`), den nak static pages seperti blog dan pages laju macam peluru. Oleh itu, den minta Mat Gem buat tetapan supaya Astro gunakan teknik **Hybrid Rendering**.
+
+Setiap fail blog Mat Gem telah tambahkan satu baris magis:
+
+```typescript
+export const prerender = true;
+```
+
+Ini bermakna, walaupun sistem e-commerce projek ini dinamik, artikel blog dan pages akan tetap menjadi fail statik yang tersangat laju di Cloudflare nanti.
+
+### Rumusan Hari Pertama
+
+Hari ini berakhir dengan:
+
+- ✅ Struktur folder yang kemas.
+- ✅ Git lokal yang merakam setiap langkah.
+- ✅ Dashboard CMS yang sudah boleh digunakan untuk edit blog secara visual.
+- ✅ 1 fail `CHANGELOG.md` untuk rujukan masa depan.
+
+Esok? Den nak cuba godek **Homepage Editor** supaya boleh tukar Headline di homepage tanpa perlu sentuh kod. Dan mungkin den akan mula bina halaman butiran produk.
+
+Perjalanan baru bermula, dan setakat ini, Astro-Edge nampak sangat menjanjikan. Jumpa lagi dalam recap esok!

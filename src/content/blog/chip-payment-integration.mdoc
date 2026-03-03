@@ -1,10 +1,11 @@
 ---
-title: "Membina Sistem E-commerce Tempatan dengan Integrasi CHIP"
-publishedAt: 2026-03-01
+title: Membina Sistem E-commerce Tempatan dengan Integrasi CHIP
+publishedAt: 2026-03-01T10:00:00.000Z
 isDraft: false
-description: "Panduan integrasi payment gateway CHIP untuk menerima pembayaran dalam Ringgit Malaysia secara selamat dan efisien."
+description: >-
+  Panduan integrasi payment gateway CHIP untuk menerima pembayaran dalam Ringgit
+  Malaysia secara selamat dan efisien.
 ---
-
 Laman e-commerce yang hebat tidak akan lengkap tanpa sistem pembayaran yang dipercayai dan mesra pengguna tempatan. Dalam projek Astro-Edge, kita memilih **CHIP** sebagai rakan kongsi pembayaran kita. Mengapa CHIP? Dan bagaimana kita mengintegrasikannya secara teknikal dalam persekitaran Astro? Artikel ini akan menjawab persoalan tersebut secara mendalam.
 
 ### Mengapa CHIP untuk Pasaran Malaysia?
@@ -12,8 +13,8 @@ Laman e-commerce yang hebat tidak akan lengkap tanpa sistem pembayaran yang dipe
 Bagi peniaga di Malaysia, CHIP menawarkan kelebihan yang kompetitif:
 
 1. **Sokongan FPX & Kad**: Pengguna boleh membayar menggunakan perbankan dalam talian (FPX), kad kredit, atau kad debit tempatan. Ini adalah kaedah pembayaran paling popular di negara kita.
-2. **Kadar Transaksi Rendah**: Berbanding dengan gateway antarabangsa, CHIP menawarkan kadar yang sangat mesra bajet untuk syarikat "startup" dan PKS.
-3. **Penyepaduan API yang Bersih**: Dokumentasi CHIP sangat mudah difahami oleh developer, membolehkan kita membina "checkout flow" yang tersuai sepenuhnya.
+1. **Kadar Transaksi Rendah**: Berbanding dengan gateway antarabangsa, CHIP menawarkan kadar yang sangat mesra bajet untuk syarikat "startup" dan PKS.
+1. **Penyepaduan API yang Bersih**: Dokumentasi CHIP sangat mudah difahami oleh developer, membolehkan kita membina "checkout flow" yang tersuai sepenuhnya.
 
 ### Teknikal: Integrasi dalam Astro
 
@@ -44,7 +45,7 @@ const response = await fetch('https://gate.chip-in.asia/api/v1/purchases/', {
 ```
 
 **3. Webhook: Pengesahan Automatik**
-Selepas pembayaran berjaya, CHIP akan menghantar "Webhook" (signal rahsia) ke server kita. Ini sangat penting! Kita tidak boleh hanya bergantung kepada redirect pengguna, kerana pengguna mungkin tutup browser sebelum sempat sampai ke halaman sukses. 
+Selepas pembayaran berjaya, CHIP akan menghantar "Webhook" (signal rahsia) ke server kita. Ini sangat penting! Kita tidak boleh hanya bergantung kepada redirect pengguna, kerana pengguna mungkin tutup browser sebelum sempat sampai ke halaman sukses.
 
 Webhook membolehkan server kita mengemaskini status stok di Cloudflare D1 secara automatik dan menghantar emel pengesahan melalui **Resend API**.
 
@@ -62,6 +63,6 @@ Dalam e-commerce, sebarang "friction" atau gangguan semasa checkout akan menyeba
 
 ### Kesimpulan: Masa Depan E-commerce Tempatan
 
-Dengan menggabungkan kuasa **Astro 5**, kelajuan **Cloudflare**, dan kebolehpercayaan **CHIP**, kita telah membina satu ekosistem e-commerce yang bertaraf dunia namun tetap mesra tempatan. 
+Dengan menggabungkan kuasa **Astro 5**, kelajuan **Cloudflare**, dan kebolehpercayaan **CHIP**, kita telah membina satu ekosistem e-commerce yang bertaraf dunia namun tetap mesra tempatan.
 
 Astro-Edge bukan sekadar blog; ia adalah satu platform perniagaan yang serius. Kita sedia untuk menerima tempahan pertama hari ini! Adakah anda bersedia untuk membawa bisnes anda ke peringkat seterusnya?

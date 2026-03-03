@@ -1,10 +1,11 @@
 ---
-title: "Maksimumkan Kelajuan Web dengan Cloudflare Pages dan D1 Database"
-publishedAt: 2026-03-01
+title: Maksimumkan Kelajuan Web dengan Cloudflare Pages dan D1 Database
+publishedAt: 2026-03-01T11:00:00.000Z
 isDraft: false
-description: "Bagaimana cara deploy laman web Astro-Edge ke Cloudflare Pages dan menggunakan D1 SQL Database untuk skalabiliti global."
+description: >-
+  Bagaimana cara deploy laman web Astro-Edge ke Cloudflare Pages dan menggunakan
+  D1 SQL Database untuk skalabiliti global.
 ---
-
 Jika Astro 5 adalah enjin jet bagi projek kita, maka **Cloudflare** adalah bahan api berkelajuan tinggi yang memacu laman web ini ke tangan pengguna di seluruh dunia. Dalam fasa pembangunan Astro-Edge, kita memilih **Cloudflare Pages** sebagai platform hosting utama. Mengapa tidak server biasa? Mengapa tidak VPS? Jawapannya terletak pada satu perkataan: **The Edge**.
 
 ### Apa Itu Cloudflare Pages?
@@ -18,8 +19,8 @@ Untuk fungsi e-commerce, kita memerlukan penyimpanan data dinamik. Contohnya: re
 **Cloudflare D1** menyelesaikan masalah ini. Ia adalah database SQL berasaskan SQLite yang dibina khas untuk Cloudflare Workers dan Pages. Ciri-ciri utama D1 yang kita gunakan dalam Astro-Edge:
 
 1. **Native Integration**: D1 boleh diakses secara langsung dari kod Astro melalui "Binding". Kita tidak perlu setup connection string yang rumit atau risau tentang kebocoran data.
-2. **Edge Scalability**: Walaupun data disimpan secara SQL, akses kepadanya adalah melalui rangkaian global Cloudflare. Ini memastikan transaksi data berlaku sekelip mata.
-3. **Kos Efektif**: Dengan model "pay-as-you-go", kita hanya bayar untuk apa yang kita gunakan. Sesuai untuk perniagaan yang baru bermula.
+1. **Edge Scalability**: Walaupun data disimpan secara SQL, akses kepadanya adalah melalui rangkaian global Cloudflare. Ini memastikan transaksi data berlaku sekelip mata.
+1. **Kos Efektif**: Dengan model "pay-as-you-go", kita hanya bayar untuk apa yang kita gunakan. Sesuai untuk perniagaan yang baru bermula.
 
 ### Cara Kita Mengintegrasikan D1 dalam Astro-Edge
 
@@ -43,7 +44,7 @@ Ini membolehkan kita membina aplikasi e-commerce yang sangat dinamik tanpa perlu
 
 ### Keselamatan Tanpa Kompromi
 
-Satu lagi sebab kita memilih Cloudflare adalah aspek keselamatan. Dengan integrasi **Cloudflare Turnstile**, kita melindungi borang "Contact Us" dan "Checkout" kita daripada serangan bot tanpa menyusahkan pengguna dengan "Captcha" yang menjengkelkan. 
+Satu lagi sebab kita memilih Cloudflare adalah aspek keselamatan. Dengan integrasi **Cloudflare Turnstile**, kita melindungi borang "Contact Us" dan "Checkout" kita daripada serangan bot tanpa menyusahkan pengguna dengan "Captcha" yang menjengkelkan.
 
 Selain itu, Cloudflare secara automatik menyediakan perlindungan DDoS yang bertaraf dunia. Blog dan kedai kita akan sentiasa "online" walaupun di bawah serangan trafik yang besar.
 
