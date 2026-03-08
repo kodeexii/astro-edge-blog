@@ -2,7 +2,7 @@ name = "astro-edge-blog"
 compatibility_date = "2026-03-08"
 pages_build_output_dir = "./dist"
 
-[[d1_databases]]
-binding = "DB" # Binding yang kita akan guna dalam Astro Actions nanti
-database_name = "astro_edge_db"
-database_id = "ganti-dengan-id-d1-boss-nanti"
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "astro_edge_db"
+# database_id = "ganti-dengan-id-d1-boss-nanti"
