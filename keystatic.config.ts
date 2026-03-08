@@ -28,20 +28,12 @@ export default config({
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'status', 'publishedAt'],
+      columns: ['title', 'publishedAt'], // Buang 'status' dari senarai kolom
       schema: {
         title: fields.slug({ name: { label: 'Tajuk Artikel' } }),
         publishedAt: fields.datetime({ 
           label: 'Tarikh & Masa Terbit',
           defaultValue: { kind: 'now' },
-        }),
-        status: fields.select({
-          label: 'Status Penerbitan',
-          options: [
-            { label: '🌑 Draf (Hanya di Pratonton)', value: 'draft' },
-            { label: '🌟 Terbit (Live di Website)', value: 'published' },
-          ],
-          defaultValue: 'draft',
         }),
         coverImage: fields.image({
           label: 'Gambar Muka Depan',

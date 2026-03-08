@@ -10,10 +10,9 @@ export const prerender = true;
 // Jika kat website live, sembunyikan draf.
 const isPreview = import.meta.env.PUBLIC_IS_PREVIEW === 'true';
 
-const posts = await getCollection('blog', ({ data }) => {
-	if (isPreview) return true; // Tunjuk semua kat preview site
-	return data.status === 'published'; // Hanya tunjuk yang 'published' kat live site
-});
+const posts = await getCollection('blog');
+// Jika di website live, Astro secara automatik cuma ambil apa yang ada dalam branch main.
+// Kita cuma susun ikut tarikh terbaru.
 
 // Susun ikut tarikh terbaru
 posts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
