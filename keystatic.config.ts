@@ -7,7 +7,7 @@ const storage =
     : {
         kind: 'github',
         repo: 'kodeexii/astro-edge-blog',
-        branchPrefix: 'draf/', // Wajib ada prefix untuk pengasingan draf
+        branchPrefix: 'draf/',
       };
 
 export default config({
@@ -28,12 +28,20 @@ export default config({
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'publishedAt'],
+      columns: ['title', 'status', 'publishedAt'],
       schema: {
         title: fields.slug({ name: { label: 'Tajuk Artikel' } }),
         publishedAt: fields.datetime({ 
           label: 'Tarikh & Masa Terbit',
           defaultValue: { kind: 'now' },
+        }),
+        status: fields.select({
+          label: 'Status Penerbitan',
+          options: [
+            { label: '🌑 Draf (Hanya di Pratonton)', value: 'draft' },
+            { label: '🌟 Terbit (Live di Website)', value: 'published' },
+          ],
+          defaultValue: 'draft',
         }),
         coverImage: fields.image({
           label: 'Gambar Muka Depan',

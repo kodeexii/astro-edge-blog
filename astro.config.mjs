@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import markdoc from '@astrojs/markdoc';
 import react from '@astrojs/react';
+import keystatic from '@keystatic/astro';
 import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
@@ -13,8 +14,8 @@ export default defineConfig({
   }),
   integrations: [
     markdoc(),
-    react()
-    // keystatic() dibuang untuk membolehkan custom admin page dengan penterjemah butang
+    react(),
+    keystatic()
   ],
   vite: {
     ssr: {
