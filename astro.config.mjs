@@ -15,7 +15,7 @@ export default defineConfig({
   integrations: [
     markdoc(),
     react(),
-    keystatic()
+    keystatic() // Kembalikan integrasi rasmi supaya endpoint /api/keystatic berfungsi semula
   ],
   vite: {
     ssr: {
