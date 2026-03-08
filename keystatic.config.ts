@@ -7,6 +7,7 @@ const storage =
     : {
         kind: 'github',
         repo: 'kodeexii/astro-edge-blog',
+        branchPrefix: 'cms/',
       };
 
 export default config({
