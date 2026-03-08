@@ -36,9 +36,15 @@ Sila gunakan profil kemahiran ini untuk membina dan mengurus projek **Astro-Edge
 
 
 
-## 3\. Implementation Standards (Rules of Engagement)
+## 3. Implementation Standards (Rules of Engagement)
 
+-   **Git Management:**
+    -   **Active Branch:** Sentiasa pastikan pembangunan berlaku di branch `dev`.
+    -   **Pull First:** Wajib jalankan `git pull origin main` sebelum memulakan tugas untuk menyelaraskan kandungan CMS.
+    -   **Push Restriction:** Jangan sesekali melakukan `git push` terus ke branch `main`. Gunakan `dev` untuk pembangunan kod.
+    -   **Sync Routine:** Setiap kali kandungan CMS berubah di `main`, merge kandungan tersebut ke `dev`.
 -   **Type-Safety:** Wajib menggunakan **TypeScript** dan **Zod** untuk semua validasi data (_schema-first approach_).
+
 -   **Performance First:** Elakkan penggunaan _client-side JavaScript_ yang berat. Utamakan CSS asli atau Tailwind CSS.
 -   **Security:** Jangan dedahkan _API Keys_. Gunakan `.env` atau _Cloudflare Secrets_. Pastikan _Turnstile_ diimplementasi pada setiap borang.
 -   **Modern Control Flow:** Gunakan _Astro native control flow_ (`@if`, `@for`) dan elakkan _logic_ yang berselibat dalam komponen.

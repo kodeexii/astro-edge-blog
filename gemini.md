@@ -83,6 +83,16 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - [x] Halaman Style Guide (`/styleguide`) dibina sebagai showroom komponen.
 - [x] Halaman Katalog Produk & Detail Produk dengan sistem Aspect Ratio (3:4 & 1:1).
 - [x] Infrastruktur MCP (Astro Docs) & Modular Skills (Frontend Design) diaktifkan.
+- [x] Strategi Pengasingan Kod & Kandungan (Branching dev/main) diimplementasi.
+
+---
+
+## 🛠️ Git Workflow (The Standard)
+Untuk mengelakkan konflik antara pembangunan kod dan kemas kini CMS:
+1.  **Branch `main`:** Eksklusif untuk kandungan (Keystatic) dan Production.
+2.  **Branch `dev`:** Tempat pembangunan kod lokal.
+3.  **Sync Flow:** `main` (Content) perlu di-merge ke `dev` secara berkala.
+4.  **Deploy Flow:** `dev` (Code) di-merge ke `main` melalui Pull Request apabila sedia.
 
 ---
 
