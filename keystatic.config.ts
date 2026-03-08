@@ -23,9 +23,9 @@ export default config({
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'publishedAt'], // Tambah kolom Title dan Tarikh di sini
+      columns: ['title', 'publishedAt'],
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }), // Gunakan fields.slug untuk sinkronkan tajuk dan nama fail
+        title: fields.slug({ name: { label: 'Title' } }),
         publishedAt: fields.datetime({ 
           label: 'Published Date',
           description: 'Tarikh dan masa artikel ini diterbitkan'
