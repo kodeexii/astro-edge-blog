@@ -6,8 +6,13 @@ import Button from '../../components/ui/Button.astro';
 
 export const prerender = true;
 
+// Logik Pratonton: Jika kita kat laman preview, tunjuk semua. 
+// Jika kat website live, sembunyikan draf.
+const isPreview = import.meta.env.PUBLIC_IS_PREVIEW === 'true';
+
 const posts = await getCollection('blog', ({ data }) => {
-	return data.isDraft !== true;
+	if (isPreview) return true; // Tunjuk semua kat preview site
+	return data.isDraft !== true; // Sembunyikan draf kat live site
 });
 
 // Susun ikut tarikh terbaru
@@ -41,7 +46,9 @@ const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "O
 								<a href={`/blog/${post.slug}`}>{post.data.title}</a>
 							</h2>
 							
-							<p class="blog-desc">{post.data.description}</p>
+							<p class="blog-desc">
+								{post.data.description || (post.body ? post.body.substring(0, 120).replace(/[#*`]/g, '') + '...' : 'Tiada penerangan tersedia.')}
+							</p>
 							
 							<div class="pt-2">
 								<Button variant="outline" class="w-full" onclick={`window.location.href='/blog/${post.slug}'`}>
