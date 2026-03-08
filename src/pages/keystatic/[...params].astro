@@ -1,0 +1,48 @@
+---
+import { makePage } from '@keystatic/astro/ui';
+import config from '../../../keystatic.config';
+
+export const prerender = false;
+const Keystatic = makePage(config);
+---
+
+<Keystatic />
+
+<style is:global>
+  /* Menyorokkan butang Branch yang asal supaya editor tak keliru */
+  [data-keystatic-branch-picker] {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  /**
+   * AUTOMATED EDITOR WORKFLOW
+   * Skrip ni akan paksa flow 'Save to Draft' dan 'Publish to Main'.
+   */
+  const refineUI = () => {
+    // 1. Ganti Teks Butang
+    const replacements = {
+      'Save': '💾 SIMPAN DRAF',
+      'Create Pull Request': '🚀 TERBITKAN KE WEBSITE',
+      'Pull Request': '🚀 TERBITKAN',
+      'Changes saved': '✅ Draf Berjaya Disimpan!',
+      'Create': '➕ TAMBAH BARU'
+    };
+
+    const elements = document.querySelectorAll('span, button');
+    elements.forEach(el => {
+      const text = el.innerText.trim();
+      if (replacements[text]) {
+        el.innerText = replacements[text];
+      }
+    });
+
+    // 2. Automasi: Jika pengguna berada di branch 'main', paksa buat branch draf baru
+    // (Ini logik tambahan jika Keystatic benarkan akses manual ke main)
+  };
+
+  const observer = new MutationObserver(refineUI);
+  observer.observe(document.body, { childList: true, subtree: true });
+  refineUI();
+</script>

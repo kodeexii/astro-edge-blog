@@ -7,7 +7,7 @@ const storage =
     : {
         kind: 'github',
         repo: 'kodeexii/astro-edge-blog',
-        branchPrefix: 'draf/', // Setiap 'Save' baru akan mencadangkan branch draf
+        branchPrefix: 'draf/', // Wajib ada prefix untuk pengasingan draf
       };
 
 export default config({
@@ -22,29 +22,18 @@ export default config({
     },
   },
   collections: {
-    /**
-     * Blog Posts: Untuk artikel dan berita.
-     */
     posts: collection({
       label: 'Blog & Artikel',
       slugField: 'title',
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'status', 'publishedAt'],
+      columns: ['title', 'publishedAt'],
       schema: {
         title: fields.slug({ name: { label: 'Tajuk Artikel' } }),
         publishedAt: fields.datetime({ 
           label: 'Tarikh & Masa Terbit',
           defaultValue: { kind: 'now' },
-        }),
-        status: fields.select({
-          label: 'Status Penerbitan',
-          options: [
-            { label: '🌑 Draf (Hanya di Pratonton)', value: 'draft' },
-            { label: '🌟 Terbit (Live di Website)', value: 'published' },
-          ],
-          defaultValue: 'draft',
         }),
         coverImage: fields.image({
           label: 'Gambar Muka Depan',
@@ -52,7 +41,7 @@ export default config({
           publicPath: '/images/blog/',
         }),
         description: fields.text({ 
-          label: 'Ringkasan SEO', 
+          label: 'Ringkasan SEO (Automatik jika kosong)', 
           multiline: true,
         }),
         content: fields.markdoc({ 
@@ -67,9 +56,6 @@ export default config({
       },
     }),
 
-    /**
-     * Pages: Untuk halaman umum.
-     */
     pages: collection({
       label: 'Halaman Statik',
       slugField: 'title',
@@ -83,9 +69,6 @@ export default config({
       },
     }),
 
-    /**
-     * Products: Katalog produk e-commerce.
-     */
     products: collection({
       label: 'Katalog Produk',
       slugField: 'name',
