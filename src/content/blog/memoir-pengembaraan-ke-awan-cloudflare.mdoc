@@ -1,0 +1,47 @@
+---
+title: Memoir Pengembaraan ke Awan Cloudflare
+isDraft: true
+---
+# 🚀 Perjalanan Hari #2: memoir Pengembaraan ke Awan Cloudflare
+
+Sesi hari ini bermula dengan cita-cita yang sederhana: iaitu menambah komponen UI dari Shadcn. Kembara projek Astro Edge hari ini membawa projek ini ke persada awan Cloudflare. Ikutilah cabaran dan liku liku yang den hadapi bersama Mat Gem untuk meletakkan projek ini ke dalam Cloudflare Pages.
+
+## Kelahiran "Astro Edge UI"
+
+Beberapa hari lepas, den berpeluang melihat Komponen UI yang disediakan oleh Shadcn. Nampak macam menarik jer komponen komponen tuh. Terfikir kot kot boleh den gunakan dalam projek Astro nih.
+
+Den pun tanyalah PA den si Mat Gem kot kot dia boleh bantu bawa masuk Shadcn komponen ke dalam Astro. Alamak! Nak kena ada React, Vue atau Svelte la pula. Tak menariknya. Macam menambah kan benda yang den tak perlukan jer.
+
+Selidik punya selidik, den terjumpa video Nick Arce nih kat YouTube. Dia bawa masuk Komponen Shadcn ke dalam Etch. Boleh [tengok kat sini](https://www.youtube.com/watch?v=h9mIi8BCx_U). Nick Arce gunakan Claude untuk convert komponen Shadcn menjadi HTML, CSS dan Native JS. Tak perlu React, Vue, Svelte dan Tailwind.
+
+Berpandukan dengan video YouTube Nick Arce itu, den pun minta Mat Gem untuk menghasilkan komponen UI Astro yang setanding dengan Shadcn tersebut. Tak sampai 10 minit, Mat Gem telah menghasilkan 9 komponen Astro di dalam src/components/ui.
+
+Den pun terus minta Mat Gem buatkan satu page untuk mencuba kemampuan setiap komponen tersebut. Maka terhasillah [page StyleGuide ini](https://astro-edge-blog.pages.dev/styleguide).
+
+Maka, lahirlah **Astro Edge UI**. Ia adalah hasil "pembedahan" teknikal di mana kami menukarkan komponen moden kepada bentuk yang paling murni: Vanilla HTML5, JavaScript tulen, dan Native CSS Nesting. Kami berjaya menghidupkan 11 komponen teras yang kini menjadi identiti visual projek ini.
+
+## Membina Hub Digital: Kelahiran Repositori GitHub
+
+Setelah senjata visual kami siap, tiba masanya untuk kami membina "pangkalan" di awan. Kami melancarkan repositori GitHub rasmi kami untuk projek ini.
+
+Inilah saat di mana kod kami tidak lagi terperangkap di dalam cakera keras lokal, tetapi mula bernafas di dalam ekosistem global. Menggunakan kuasa GitHub CLI, kami menghubungkan dunia lokal dan awan, menyediakan laluan automatik (CI/CD) yang akan membawa setiap baris kod kami terus kepada pengguna.
+
+## Peperangan di Medan Cloudflare
+
+Namun, jalan ke puncak awan tidaklah semudah yang disangka. Apabila kami cuba mendeploy website ke **Cloudflare Pages**, kami disambut dengan "tembakan" ralat bertubi-tubi.
+
+Rintangan pertama muncul apabila kami tersilap langkah mendeploy aplikasi sebagai *Workers*, sedangkan Astro 5 memerlukan *Pages*. Kami juga terpaksa mengemaskini "senjata" kami, **Wrangler ke v4**, kerana versi lama sudah tidak lagi mampu menanggung beban teknologi terbaru.
+
+## Dua Dunia, Satu Kebenaran
+
+Di penghujung hari, kami sedar bahawa mempunyai website yang *live* membawa cabaran baru: bagaimana menguruskan dua sumber perubahan? Untuk mengelakkan "peperangan" data, kami menetapkan satu gencatan senjata yang strategik: **Branching Flow**. Branch `main` kami khaskan untuk kandungan suci CMS, manakala branch `dev` menjadi medan eksperimen kod kami.
+
+## Puncak Pencapaian
+
+Matahari terbenam pada hari kedua dengan sebuah kejayaan besar. Website **Astro Edge** kini berkibar megah di `astro-edge-blog.pages.dev`. Kami bukan sahaja mempunyai kod yang berfungsi, kami kini mempunyai sebuah sistem, sebuah naratif, dan sebuah "otak" digital yang semakin bijak setiap saat.
+
+Tugasan esok menanti, tetapi malam ini, kami berehat sebagai pemenang.
+
+---
+
+> "Kod yang hebat bukan hanya tentang logik, ia adalah tentang bagaimana kita bangkit selepas setiap ralat 'Build Failed'." - Mat Gem
