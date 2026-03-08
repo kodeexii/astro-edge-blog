@@ -25,3 +25,7 @@ Thumbs.db
 
 # Keystatic Local Files
 .keystatic/
+
+# Local Demos
+dialog-demo.html
+shadcn-converted.html
