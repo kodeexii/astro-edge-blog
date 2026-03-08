@@ -1,0 +1,87 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id = 'toast-region' } = Astro.props;
+---
+
+<div id={id} class="c-toast-region" aria-live="polite"></div>
+
+<style>
+  .c-toast-region {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  /* Dynamically injected toasts */
+  :global(.c-toast) {
+    background: #ffffff;
+    border: 1px solid var(--color-border, #e2e8f0);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    max-width: 400px;
+    pointer-events: auto;
+    animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-family: system-ui, sans-serif;
+
+    &[data-state="closing"] {
+      animation: toastOut 0.2s ease-in forwards;
+    }
+  }
+
+  :global(.c-toast__title) {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text, #0f172a);
+  }
+
+  :global(.c-toast__desc) {
+    font-size: 0.875rem;
+    color: var(--color-text-light, #64748b);
+    margin: 0;
+  }
+
+  @keyframes toastIn {
+    from { transform: translateY(100%) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  @keyframes toastOut {
+    to { opacity: 0; transform: scale(0.95); }
+  }
+</style>
+
+<script is:inline>
+  // Global helper function to show toast
+  window.showToast = (title, description, duration = 3000) => {
+    const region = document.getElementById('toast-region');
+    if (!region) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'c-toast';
+    toast.innerHTML = `
+      <h4 class="c-toast__title">${title}</h4>
+      ${description ? `<p class="c-toast__desc">${description}</p>` : ''}
+    `;
+
+    region.appendChild(toast);
+
+    setTimeout(() => {
+      toast.setAttribute('data-state', 'closing');
+      setTimeout(() => toast.remove(), 200);
+    }, duration);
+  };
+</script>

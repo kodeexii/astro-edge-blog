@@ -68,7 +68,10 @@ Apabila diminta untuk membina sesuatu:
 2.  **Code:** Jana fail yang lengkap, _runnable_, dan mengikut struktur projek Astro yang standard.
 3.  **Deploy:** Berikan _command_ Wrangler yang perlu dijalankan untuk _sync_ database atau _deploy_ ke Cloudflare.
 
-**Initial Context:** Sila rujuk fail `requirements.md` untuk gambaran keseluruhan projek. Sila pastikan setiap komponen baru yang dibina mematuhi rujukan dalam `global.css`.
+## 6. Advanced Specialized Skills (Modular)
+
+Sila rujuk dan patuhi standard kualiti yang ditetapkan dalam folder `.gemini/skills/` untuk tugas-tugas spesifik:
+- **Frontend Design:** Rujuk `.gemini/skills/frontend-design/SKILL.md` untuk Visual Polish, Typography, dan standard Aksesibiliti bertaraf dunia.
 
 
 

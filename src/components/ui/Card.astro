@@ -1,0 +1,111 @@
+---
+interface Props {
+  variant?: 'default' | 'bordered' | 'ghost' | 'glass';
+  padding?: boolean;
+  class?: string;
+}
+
+const { 
+  variant = 'default', 
+  padding = true, 
+  class: className 
+} = Astro.props;
+
+// Semak jika slot mempunyai kandungan
+const hasHeader = Astro.slots.has('header');
+const hasFooter = Astro.slots.has('footer');
+---
+
+<div class:list={[
+  'c-card', 
+  `c-card--${variant}`, 
+  className
+]}>
+  {hasHeader && (
+    <div class="c-card__header">
+      <slot name="header" />
+    </div>
+  )}
+  
+  <div class:list={['c-card__body', { 'c-card__body--padding': padding }]}>
+    <slot />
+  </div>
+  
+  {hasFooter && (
+    <div class="c-card__footer">
+      <slot name="footer" />
+    </div>
+  )}
+</div>
+
+<style>
+  .c-card {
+    border-radius: var(--radius-md, 0.5rem);
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    &.c-card--default {
+      border: 1px solid var(--color-border, #e2e8f0);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      &:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    &.c-card--bordered {
+      border: 2px solid var(--color-text, #1e293b);
+      &:hover {
+        box-shadow: 4px 4px 0px 0px var(--color-text, #1e293b);
+      }
+    }
+
+    &.c-card--ghost {
+      border: 1px dashed var(--color-border, #e2e8f0);
+      background: #f8fafc;
+    }
+
+    &.c-card--glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Elemen BEM Dalaman */
+    .c-card__header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--color-border, #e2e8f0);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--color-text, #0f172a);
+    }
+
+    .c-card__body {
+      flex: 1;
+      &--padding {
+        padding: 1.5rem;
+      }
+    }
+
+    .c-card__footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--color-border, #e2e8f0);
+      background: #fafafa;
+    }
+
+    /* Global selector untuk imej supaya cecah tepi */
+    :global(.c-card__image) {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+  }
+</style>

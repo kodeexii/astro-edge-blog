@@ -1,0 +1,424 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Input from '../components/ui/Input.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import Dialog from '../components/ui/Dialog.astro';
+import Switch from '../components/ui/Switch.astro';
+import Tabs from '../components/ui/Tabs.astro';
+import Dropdown from '../components/ui/Dropdown.astro';
+import Sheet from '../components/ui/Sheet.astro';
+import Toast from '../components/ui/Toast.astro';
+import Skeleton from '../components/ui/Skeleton.astro';
+
+const tabItems = [
+  { id: 'tab1', label: 'Overview' },
+  { id: 'tab2', label: 'Technical' },
+  { id: 'tab3', label: 'History' }
+];
+---
+
+<Layout title="Style Guide | Astro Edge">
+  <main class="styleguide">
+    <header class="sg-header">
+      <h1>Astro Edge Style Guide</h1>
+      <p>Koleksi komponen UI native, ringan, dan accessible yang dibina khas untuk projek Astro Build.</p>
+    </header>
+
+    <div class="sg-grid">
+      
+      <!-- 1. BUTTONS -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">1. Buttons</h2>
+        <div class="sg-preview">
+          <Button variant="primary">Primary Button</Button>
+          <Button variant="outline">Outline Button</Button>
+          <Button variant="ghost">Ghost Button</Button>
+          <Button variant="primary" disabled>Disabled</Button>
+        </div>
+      </section>
+
+      <!-- 2. CARDS -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">2. Card Variations</h2>
+        <div class="sg-preview grid-cols-2">
+          
+          <!-- Variant 1: Default with Header/Footer -->
+          <Card class="max-w-sm">
+            <h3 slot="header">Default Card</h3>
+            <p class="text-slate-600">Gaya kad standard dengan bayang-bayang ringan dan border halus. BEM classes diuruskan secara automatik.</p>
+            <div slot="footer">
+              <Button variant="ghost" class="text-xs">Lihat Detail</Button>
+            </div>
+          </Card>
+
+          <!-- Variant 2: Bordered -->
+          <Card variant="bordered" class="max-w-sm">
+            <h3 class="text-lg font-bold mb-2">Bordered Card</h3>
+            <p class="text-slate-600">Gaya kad yang lebih tegas tanpa bayang-bayang, fokus pada garisan luar.</p>
+          </Card>
+
+          <!-- Variant 3: Ghost -->
+          <Card variant="ghost" class="max-w-sm">
+            <h3 class="text-lg font-bold mb-2">Ghost / Draft Card</h3>
+            <p class="text-slate-600">Sesuai untuk item draft atau placeholder yang belum aktif.</p>
+          </Card>
+
+          <!-- Variant 4: Glass (Glassmorphism) -->
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 1rem;">
+            <Card variant="glass" class="max-w-sm">
+              <h3 class="text-lg font-bold mb-2">Glassmorphism Card</h3>
+              <p class="text-slate-900">Efek kaca tembus pandang yang moden dan elegan.</p>
+            </Card>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. CONTENT CARDS (IMAGES) -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">3. Content Cards (With Images)</h2>
+        <div class="sg-preview grid-cols-2">
+          
+          <!-- Blog Card Style -->
+          <Card class="max-w-sm" padding={false}>
+            <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&auto=format&fit=crop&q=60" alt="Blog" class="c-card__image" />
+            <div class="p-6">
+              <span class="text-xs font-bold text-blue-600 uppercase">Tutorial</span>
+              <h3 class="text-xl font-bold mt-2 mb-3">Membina SaaS dengan Astro 5</h3>
+              <p class="text-slate-600 text-sm mb-4">Pelajari teknik terpantas membina aplikasi web moden tanpa framework CSS yang berat.</p>
+              <Button variant="primary" class="w-full">Baca Lanjut</Button>
+            </div>
+          </Card>
+
+          <!-- Team Card Style -->
+          <div class="c-team-card">
+            <Card class="text-center" padding={false}>
+              <div class="c-team-card__avatar-wrapper">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=60" alt="Hadee Roslan" class="c-team-card__img" />
+                <span class="c-team-card__status" title="Online"></span>
+              </div>
+              <div class="c-team-card__content">
+                <h3 class="c-team-card__name">Hadee Roslan</h3>
+                <p class="c-team-card__role">Lead Systems Architect</p>
+                <p class="c-team-card__bio">Pakar dalam pembinaan infrastruktur awan dan aplikasi web berprestasi tinggi.</p>
+                <div class="c-team-card__social">
+                  <Button variant="outline" class="c-team-card__social-btn">𝕏</Button>
+                  <Button variant="outline" class="c-team-card__social-btn">in</Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 4. INPUTS & FORM -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">4. Inputs & Form</h2>
+        <div class="sg-preview flex-col max-w-sm">
+          <Input 
+            label="Username" 
+            id="user-input" 
+            name="username" 
+            placeholder="Masukkan username..." 
+            hint="Minimun 5 aksara."
+            required
+          />
+          <Input 
+            label="Email Address" 
+            id="email-input" 
+            name="email" 
+            type="email"
+            value="hadee@example.com"
+            error="Format emel tidak sah."
+          />
+        </div>
+      </section>
+
+      <!-- 4. ACCORDION -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">4. Accordion</h2>
+        <div class="sg-preview flex-col max-w-md">
+          <Accordion title="Apakah itu Astro Edge?">
+            Astro Edge adalah platform hibrid yang menggabungkan kelajuan halaman statik dengan fleksibiliti fungsi serverless Cloudflare.
+          </Accordion>
+          <Accordion title="Bagaimana dengan aksesibiliti?">
+            Semua komponen mematuhi standard WAI-ARIA dan boleh dikendalikan sepenuhnya menggunakan papan kekunci.
+          </Accordion>
+        </div>
+      </section>
+
+      <!-- 5. INTERACTIVE (Dialog, Sheet, Toast) -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">5. Interactive Components</h2>
+        <div class="sg-preview">
+          <!-- Dialog Trigger -->
+          <Button variant="outline" id="trigger-dialog">Buka Dialog</Button>
+          
+          <!-- Sheet Trigger -->
+          <Button variant="outline" id="trigger-sheet">Buka Sheet</Button>
+          
+          <!-- Toast Trigger -->
+          <Button variant="primary" id="trigger-toast-demo">Tunjuk Toast</Button>
+        </div>
+      </section>
+
+      <!-- 6. SWITCH -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">6. Switch</h2>
+        <div class="sg-preview">
+          <Switch id="sw-1" label="Airplane Mode" />
+          <Switch id="sw-2" label="Dark Mode" checked />
+        </div>
+      </section>
+
+      <!-- 7. TABS -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">7. Tabs</h2>
+        <div class="sg-preview max-w-md">
+          <Tabs items={tabItems} id="demo-tabs">
+            <div role="tabpanel" id="demo-tabs-panel-tab1">
+              <p>Ini adalah kandungan bagi tab <strong>Overview</strong>.</p>
+            </div>
+            <div role="tabpanel" id="demo-tabs-panel-tab2" hidden>
+              <p>Maklumat <strong>Technical</strong> projek dipaparkan di sini.</p>
+            </div>
+            <div role="tabpanel" id="demo-tabs-panel-tab3" hidden>
+              <p>Sejarah atau <strong>History</strong> perkembangan sistem.</p>
+            </div>
+          </Tabs>
+        </div>
+      </section>
+
+      <!-- 8. DROPDOWN -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">8. Dropdown</h2>
+        <div class="sg-preview">
+          <Dropdown id="user-menu" label="Akaun Saya">
+            <a href="#" class="c-dropdown__item">Profil</a>
+            <a href="#" class="c-dropdown__item">Tetapan</a>
+            <hr class="my-1 border-slate-100" />
+            <button class="c-dropdown__item text-red-600">Log Keluar</button>
+          </Dropdown>
+        </div>
+      </section>
+
+      <!-- 10. ASPECT RATIO CARDS -->
+      <section class="sg-section">
+        <h2 class="sg-section__title">10. Image Aspect Ratios</h2>
+        <div class="sg-preview grid-cols-3">
+          
+          <!-- 4:3 (Lanskap Standard) -->
+          <Card class="max-w-xs" padding={false}>
+            <div style="aspect-ratio: 4/3; overflow: hidden; background: #eee;">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80" alt="4:3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold">Ratio 4:3</h3>
+              <p class="text-xs text-slate-500">Sesuai untuk galeri gambar biasa.</p>
+            </div>
+          </Card>
+
+          <!-- 3:4 (Portrait) -->
+          <Card class="max-w-xs" padding={false}>
+            <div style="aspect-ratio: 3/4; overflow: hidden; background: #eee;">
+              <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&q=80" alt="3:4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold">Ratio 3:4</h3>
+              <p class="text-xs text-slate-500">Sesuai untuk poster atau katalog pakaian.</p>
+            </div>
+          </Card>
+
+          <!-- 1:1 (Square) -->
+          <Card class="max-w-xs" padding={false}>
+            <div style="aspect-ratio: 1/1; overflow: hidden; background: #eee;">
+              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80" alt="1:1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold">Ratio 1:1</h3>
+              <p class="text-xs text-slate-500">Sesuai untuk produk e-commerce atau Instagram style.</p>
+            </div>
+          </Card>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Modals (Placed at bottom for better DOM flow) -->
+    <Dialog id="sg-dialog" title="Padam Akaun?" description="Adakah anda pasti? Tindakan ini tidak boleh diundur.">
+      <p class="text-slate-600 text-sm">Semua data anda akan dipadamkan secara kekal dari pelayan kami.</p>
+      <div slot="footer" class="flex gap-2">
+        <Button variant="outline" onclick="document.getElementById('sg-dialog').close()">Batal</Button>
+        <Button variant="primary" class="bg-red-600 border-red-600 hover:bg-red-700">Ya, Padam</Button>
+      </div>
+    </Dialog>
+
+    <Sheet id="sg-sheet" title="Tetapan Profil" description="Kemaskini maklumat peribadi anda di sini.">
+      <div class="space-y-4 pt-4">
+        <Input label="Nama Penuh" id="sheet-name" name="name" value="Hadee Roslan" />
+        <Input label="Lokasi" id="sheet-loc" name="location" value="Kuala Lumpur" />
+      </div>
+    </Sheet>
+
+    <!-- Global Toast Region -->
+    <Toast />
+
+  </main>
+</Layout>
+
+<style>
+  .styleguide {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .sg-header {
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2rem;
+
+    & h1 { font-size: 2.5rem; font-weight: 800; margin: 0 0 0.5rem 0; letter-spacing: -0.025em; }
+    & p { color: #64748b; font-size: 1.125rem; margin: 0; }
+  }
+
+  .sg-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .sg-section {
+    &__title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  .sg-preview {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  /* Utility classes for demo */
+  .flex { display: flex; }
+  .flex-col { flex-direction: column; }
+  .items-center { align-items: center; }
+  .gap-2 { gap: 0.5rem; }
+  .gap-3 { gap: 0.75rem; }
+  .space-y-2 > * + * { margin-top: 0.5rem; }
+  .space-y-4 > * + * { margin-top: 1rem; }
+  .max-w-sm { max-width: 384px; }
+  .max-w-md { max-width: 448px; }
+  .max-w-xs { max-width: 320px; }
+  .p-6 { padding: 1.5rem; }
+  .pt-4 { padding-top: 1rem; }
+  .mb-2 { margin-bottom: 0.5rem; }
+  .mb-4 { margin-bottom: 1rem; }
+  .text-xl { font-size: 1.25rem; }
+  .font-bold { font-weight: 700; }
+  .text-sm { font-size: 0.875rem; }
+  .text-slate-600 { color: #475569; }
+  .text-red-600 { color: #dc2626; }
+  .bg-red-600 { background: #dc2626; }
+  .border-red-600 { border-color: #dc2626; }
+  .my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+  .border-slate-100 { border-color: #f1f5f9; }
+
+  /* Team Card Specific Styles */
+  .c-team-card {
+    max-width: 350px;
+    width: 100%;
+
+    .c-team-card__avatar-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 2rem auto 0;
+    }
+
+    .c-team-card__img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .c-team-card__status {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 20px;
+      height: 20px;
+      background-color: #22c55e;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+    }
+
+    .c-team-card__content {
+      padding: 1.5rem;
+    }
+
+    .c-team-card__name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.25rem;
+    }
+
+    .c-team-card__role {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #3b82f6;
+      margin-bottom: 1rem;
+    }
+
+    .c-team-card__bio {
+      font-size: 0.875rem;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .c-team-card__social {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .c-team-card__social-btn {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+    }
+  }
+</style>
+
+<script>
+  // Logic for Style Guide demo
+  document.getElementById('trigger-dialog')?.addEventListener('click', () => {
+    (document.getElementById('sg-dialog') as HTMLDialogElement).showModal();
+  });
+
+  document.getElementById('trigger-sheet')?.addEventListener('click', () => {
+    (document.getElementById('sg-sheet') as HTMLDialogElement).showModal();
+  });
+
+  document.getElementById('trigger-toast-demo')?.addEventListener('click', () => {
+    // @ts-ignore - Global function defined in Toast.astro
+    window.showToast('Berjaya!', 'Profil anda telah dikemaskini.');
+  });
+</script>

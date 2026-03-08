@@ -1,0 +1,110 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  side?: 'left' | 'right';
+}
+
+const { id, title, description, side = 'right' } = Astro.props;
+---
+
+<dialog 
+  id={id} 
+  class:list={['c-sheet', `c-sheet--${side}`]}
+  aria-labelledby={`${id}-title`}
+>
+  <div class="c-sheet__inner">
+    <header class="c-sheet__header">
+      <h2 class="c-sheet__title" id={`${id}-title`}>{title}</h2>
+      {description && <p class="c-sheet__desc">{description}</p>}
+    </header>
+
+    <div class="c-sheet__content">
+      <slot />
+    </div>
+
+    <footer class="c-sheet__footer">
+      <form method="dialog">
+        <button type="submit" class="c-btn-close">Close</button>
+      </form>
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .c-sheet {
+    border: none;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: 350px;
+    max-width: 90vw;
+    background: #ffffff;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    animation: sheetIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &.c-sheet--right {
+      left: auto;
+      right: 0;
+      border-left: 1px solid var(--color-border, #e2e8f0);
+    }
+
+    &.c-sheet--left {
+      left: 0;
+      right: auto;
+      border-right: 1px solid var(--color-border, #e2e8f0);
+    }
+
+    &::backdrop {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Gunakan kelas penuh tanpa "&__" */
+    .c-sheet__inner {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .c-sheet__header { margin-bottom: 2rem; }
+    .c-sheet__title { font-size: 1.125rem; font-weight: 600; margin: 0; color: var(--color-text, #0f172a); }
+    .c-sheet__desc { font-size: 0.875rem; color: var(--color-text-light, #64748b); margin: 0.5rem 0 0 0; }
+    .c-sheet__content { flex: 1; overflow-y: auto; }
+    .c-sheet__footer { margin-top: auto; padding-top: 1rem; }
+  }
+
+  @keyframes sheetIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .c-btn-close {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    background: white;
+    &:hover { background: #f8fafc; }
+  }
+</style>
+
+<script is:inline define:vars={{ id }}>
+  const sheet = document.getElementById(id);
+  sheet?.addEventListener('click', (e) => {
+    if (e.target === sheet) sheet.close();
+  });
+</script>

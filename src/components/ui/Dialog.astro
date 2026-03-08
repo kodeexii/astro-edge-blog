@@ -1,0 +1,101 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+const { id, title, description } = Astro.props;
+---
+
+<dialog 
+  id={id} 
+  class="c-dialog"
+  aria-labelledby={`${id}-title`}
+  aria-describedby={description ? `${id}-desc` : undefined}
+>
+  <div class="c-dialog__inner">
+    <header class="c-dialog__header">
+      <h2 class="c-dialog__title" id={`${id}-title`}>{title}</h2>
+      {description && <p class="c-dialog__desc" id={`${id}-desc`}>{description}</p>}
+    </header>
+
+    <div class="c-dialog__content">
+      <slot />
+    </div>
+
+    <footer class="c-dialog__footer">
+      <form method="dialog">
+        <slot name="footer">
+          <button type="submit" class="c-btn-close">Close</button>
+        </slot>
+      </form>
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .c-dialog {
+    border: 1px solid var(--color-border, #e2e8f0);
+    border-radius: 0.75rem;
+    padding: 0;
+    max-width: 440px;
+    width: calc(100% - 2rem);
+    margin: auto;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    overflow: hidden;
+
+    &::backdrop {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Native Nesting: Tidak boleh guna &__inner */
+    .c-dialog__inner {
+      padding: 1.5rem;
+    }
+
+    .c-dialog__header {
+      margin-bottom: 1.5rem;
+    }
+
+    .c-dialog__title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--color-text, #0f172a);
+      margin: 0;
+    }
+
+    .c-dialog__desc {
+      font-size: 0.875rem;
+      color: var(--color-text-light, #64748b);
+      margin: 0.5rem 0 0 0;
+      line-height: 1.5;
+    }
+
+    .c-dialog__footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .c-btn-close {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #e2e8f0;
+    background: white;
+    &:hover { background: #f8fafc; }
+  }
+</style>
+
+<script is:inline define:vars={{ id }}>
+  const dialog = document.getElementById(id);
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>

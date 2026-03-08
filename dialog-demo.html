@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog Profile Demo - Astro Edge Style</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f1f5f9;
+        }
+
+        /* Dialog Styling dengan CSS Nesting */
+        .c-dialog {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0;
+            max-width: 440px;
+            width: calc(100% - 2rem);
+            margin: auto; /* Memastikan dialog popup di tengah skrin */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            overflow: hidden;
+
+            &::backdrop {
+                background: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(4px);
+            }
+
+            & .c-dialog__form {
+                padding: 1.5rem;
+            }
+
+            & .c-dialog__header {
+                margin-bottom: 1.5rem;
+
+                & .c-dialog__title {
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    color: #0f172a;
+                    margin: 0;
+                }
+
+                & .c-dialog__description {
+                    font-size: 0.875rem;
+                    color: #64748b;
+                    margin: 0.5rem 0 0 0;
+                    line-height: 1.5;
+                }
+            }
+
+            & .c-dialog__body {
+                display: flex;
+                flex-direction: column;
+                gap: 1.25rem;
+                margin-bottom: 2rem;
+
+                & .c-field {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    & .c-field__label {
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        color: #1e293b;
+                    }
+
+                    & .c-field__hint {
+                        font-size: 0.75rem;
+                        color: #94a3b8;
+                    }
+
+                    & .c-input {
+                        padding: 0.5rem 0.75rem;
+                        border: 1px solid #cbd5e1;
+                        border-radius: 0.375rem;
+                        font-size: 0.875rem;
+                        background: #ffffff;
+                        transition: all 0.2s;
+
+                        &:focus {
+                            outline: none;
+                            border-color: #0f172a;
+                            box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+                        }
+                    }
+                }
+            }
+
+            & .c-dialog__footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.75rem;
+            }
+        }
+
+        /* Button Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+
+            &--primary {
+                background: #0f172a;
+                color: #ffffff;
+                text-decoration: none;
+                &:hover { background: #1e293b; }
+                &:active { transform: scale(0.98); }
+            }
+
+            &--outline {
+                background: #ffffff;
+                border-color: #e2e8f0;
+                color: #0f172a;
+                &:hover { 
+                    background: #f8fafc; 
+                    border-color: #cbd5e1;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Trigger Button -->
+    <button 
+        type="button" 
+        class="btn btn--outline" 
+        id="open-dialog"
+        aria-haspopup="dialog"
+        aria-controls="profile-dialog"
+    >
+        Open Dialog
+    </button>
+
+    <!-- Native HTML Dialog (Modal) -->
+    <dialog 
+        class="c-dialog" 
+        id="profile-dialog"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-desc"
+        aria-modal="true"
+    >
+        <form method="dialog" class="c-dialog__form" id="profile-form">
+            
+            <header class="c-dialog__header">
+                <h2 class="c-dialog__title" id="dialog-title">Edit profile</h2>
+                <p class="c-dialog__description" id="dialog-desc">
+                    Make changes to your profile here. Click save when you're done.
+                </p>
+            </header>
+
+            <div class="c-dialog__body">
+                <div class="c-field">
+                    <label class="c-field__label" for="name-1">Name</label>
+                    <input 
+                        class="c-input" 
+                        id="name-1" 
+                        name="name" 
+                        type="text" 
+                        value="Pedro Duarte" 
+                        required 
+                        aria-required="true"
+                    />
+                </div>
+
+                <div class="c-field">
+                    <label class="c-field__label" for="username-1">Username</label>
+                    <input 
+                        class="c-input" 
+                        id="username-1" 
+                        name="username" 
+                        type="text" 
+                        value="@peduarte" 
+                        required 
+                        aria-required="true"
+                        aria-describedby="username-hint"
+                    />
+                    <span class="c-field__hint" id="username-hint">
+                        Username must be unique and start with @.
+                    </span>
+                </div>
+            </div>
+
+            <footer class="c-dialog__footer">
+                <button type="button" class="btn btn--outline" id="close-dialog">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn--primary">
+                    Save changes
+                </button>
+            </footer>
+
+        </form>
+    </dialog>
+
+    <script>
+        const dialog = document.getElementById('profile-dialog');
+        const openBtn = document.getElementById('open-dialog');
+        const closeBtn = document.getElementById('close-dialog');
+        const form = document.getElementById('profile-form');
+
+        // Buka Modal
+        openBtn.addEventListener('click', () => {
+            dialog.showModal();
+            dialog.querySelector('input').focus();
+        });
+
+        // Tutup Modal secara manual
+        closeBtn.addEventListener('click', () => {
+            dialog.close();
+        });
+
+        // Tutup bila klik di kawasan Backdrop
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                dialog.close();
+            }
+        });
+
+        // Handle Form Submission
+        form.addEventListener('submit', (e) => {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log('Data Disimpan:', data);
+            alert('Data saved! Check console for details.');
+        });
+    </script>
+</body>
+</html>

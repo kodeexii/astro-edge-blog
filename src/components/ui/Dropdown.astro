@@ -1,0 +1,160 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  class?: string;
+}
+
+const { id, label, class: className } = Astro.props;
+---
+
+<div class:list={['c-dropdown', className]} id={id}>
+  <button 
+    class="c-dropdown__trigger" 
+    aria-haspopup="true" 
+    aria-expanded="false" 
+    id={`${id}-trigger`}
+  >
+    {label} <span class="c-dropdown__arrow">▾</span>
+  </button>
+  
+  <div 
+    class="c-dropdown__menu" 
+    role="menu" 
+    aria-labelledby={`${id}-trigger`} 
+    id={`${id}-menu`}
+  >
+    <slot />
+  </div>
+</div>
+
+<style>
+  .c-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .c-dropdown__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid var(--color-border, #e2e8f0);
+    color: var(--color-text, #0f172a);
+    transition: all 0.2s;
+    font-family: inherit;
+
+    &:hover { background: #f8fafc; }
+    &:focus-visible { outline: 2px solid var(--color-primary, #3b82f6); outline-offset: 2px; }
+  }
+
+  .c-dropdown__arrow {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-light, #64748b);
+  }
+
+  .c-dropdown__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.25rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border, #e2e8f0);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    display: none;
+    flex-direction: column;
+    padding: 0.25rem;
+    z-index: 50;
+    animation: dropdownIn 0.2s ease-out;
+
+    &[data-state="open"] {
+      display: flex;
+    }
+  }
+
+  /* Style for items inside slot (Gunakan :global supaya dia kena pada <a> atau <button> dalam slot) */
+  .c-dropdown :global(.c-dropdown__item) {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    text-align: left;
+    width: 100%;
+    color: var(--color-text, #1e293b);
+    transition: background 0.1s;
+    text-decoration: none;
+    font-family: inherit;
+
+    &:hover, &:focus {
+      background: #f1f5f9;
+      color: var(--color-text, #0f172a);
+      outline: none;
+    }
+  }
+
+  @keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(-0.5rem) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+</style>
+
+<script is:inline define:vars={{ id }}>
+  (function() {
+    const container = document.getElementById(id);
+    if (!container) return;
+
+    const trigger = container.querySelector('.c-dropdown__trigger');
+    const menu = container.querySelector('.c-dropdown__menu');
+    
+    // Gunakan querySelectorAll untuk cari item walaupun dalam slot
+    const getItems = () => menu.querySelectorAll('.c-dropdown__item');
+
+    const toggle = () => {
+      const isOpen = menu.getAttribute('data-state') === 'open';
+      menu.setAttribute('data-state', isOpen ? 'closed' : 'open');
+      trigger.setAttribute('aria-expanded', !isOpen);
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+
+    // Tutup bila klik luar
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        menu.setAttribute('data-state', 'closed');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Navigasi Arrow keys
+    container.addEventListener('keydown', (e) => {
+      const items = getItems();
+      const activeIdx = Array.from(items).indexOf(document.activeElement);
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (menu.getAttribute('data-state') !== 'open') toggle();
+        items[(activeIdx + 1) % items.length]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(activeIdx - 1 + items.length) % items.length]?.focus();
+      } else if (e.key === 'Escape') {
+        menu.setAttribute('data-state', 'closed');
+        trigger.focus();
+      }
+    });
+  })();
+</script>

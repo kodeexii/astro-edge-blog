@@ -78,6 +78,31 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - [x] Sistem "Datetime" & UTC Sorting diaktifkan untuk Blog.
 - [x] Paparan Dashboard Keystatic diperkemas dengan kolom maklumat.
 - [x] Daily Recap #1 (Storytelling Style) diterbitkan.
+- [x] Pembangunan "Astro Edge Design System" (11 Komponen UI Native).
+- [x] Integrasi Native CSS Nesting (Standard Browser) dalam Komponen.
+- [x] Halaman Style Guide (`/styleguide`) dibina sebagai showroom komponen.
+- [x] Halaman Katalog Produk & Detail Produk dengan sistem Aspect Ratio (3:4 & 1:1).
+- [x] Infrastruktur MCP (Astro Docs) & Modular Skills (Frontend Design) diaktifkan.
+
+---
+
+## 📝 Daily Recap: Hari #2 - "The Birth of a Design System"
+
+Hari ini bukan sekadar menulis kod, tapi kita telah melahirkan **Design System** kita sendiri yang dinamakan **Astro Edge UI**. 
+
+### 🛠️ Apa yang kita capai:
+1.  **UI Components Alpha:** Kita dah ada 11 komponen teras (Button, Card, Input, Accordion, Dialog, Switch, Tabs, Dropdown, Sheet, Toast, Skeleton) yang dibina 100% menggunakan HTML/JS/CSS tulen. Ringan, laju, dan "future-proof".
+2.  **Product Engine:** Katalog produk kini nampak profesional dengan nisbah imej 3:4 (Listing) dan 1:1 (Detail). Imej laptop "Ultra-Edge Pro" kini menjadi penanda aras kualiti visual kita.
+3.  **Infrastruktur Pintar:** Kita dah pasang folder `.gemini` yang mengandungi konfigurasi **MCP Astro Docs** dan **Modular Skills**. Mat Gem sekarang dah ada "kitab" Frontend Design untuk pastikan kod yang dihasilkan sentiasa premium.
+
+### 🧠 Nota Teknikal Mat Gem:
+-   **Native Nesting Lesson:** Kita belajar yang `&__` (Sass style) tak jalan dalam native CSS Astro. Kita dah beralih ke nama kelas penuh untuk nesting yang lebih stabil.
+-   **Accessibility First:** Setiap komponen interaktif kita dah ada "nyawa" dan "suara" (ARIA) supaya semua orang boleh guna website ni nanti.
+
+### 📅 Plan Untuk Sesi Seterusnya:
+-   [ ] Setup GitHub Remote & Initial Push.
+-   [ ] Implementasi Homepage Singleton di Keystatic.
+-   [ ] Integrasi Pembayaran CHIP (The big one!).
 
 ---
 > *Nota: Mat Gem (Gemini CLI) sentiasa memantau fail ini untuk memastikan arahan dipatuhi.*

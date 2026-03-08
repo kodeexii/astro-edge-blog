@@ -1,6 +1,7 @@
 {
-  "name": "Ebook: Astro for Beginners",
-  "price": 49.0,
-  "description": "Panduan lengkap membina laman web pantas menggunakan Astro 5. Sesuai untuk developer Malaysia!",
-  "stock": 999
+  "name": "Ultra-Edge Laptop Pro",
+  "price": 4599.00,
+  "description": "Laptop paling berkuasa untuk pembangun nirmala. Dilengkapi dengan cip pemprosesan terkini, skrin Retina yang menakjubkan, dan bateri yang tahan sepanjang hari. Sesuai untuk kerja-kerja berat seperti kompilasi kod, penyuntingan video 4K, dan reka bentuk grafik.",
+  "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=1200&auto=format&fit=crop",
+  "stock": 15
 }

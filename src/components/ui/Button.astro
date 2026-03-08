@@ -1,0 +1,76 @@
+---
+interface Props {
+  variant?: 'primary' | 'outline' | 'ghost';
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  id?: string;
+  [key: string]: any;
+}
+
+const { 
+  variant = 'primary', 
+  type = 'button', 
+  class: className,
+  id,
+  ...rest 
+} = Astro.props;
+---
+
+<button 
+  type={type} 
+  id={id}
+  class:list={['c-btn', `c-btn--${variant}`, className]} 
+  {...rest}
+>
+  <slot />
+</button>
+
+<style>
+  .c-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md, 8px);
+    font-size: var(--fs-m, 1rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    font-family: inherit;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary, #3b82f6);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Gunakan nama kelas penuh untuk nesting */
+    &.c-btn--primary {
+      background: var(--color-text, #1e293b);
+      color: #ffffff;
+      &:hover:not(:disabled) { background: #334155; }
+      &:active:not(:disabled) { transform: scale(0.98); }
+    }
+
+    &.c-btn--outline {
+      background: transparent;
+      border-color: var(--color-border, #e2e8f0);
+      color: var(--color-text, #1e293b);
+      &:hover:not(:disabled) { 
+        background: #f8fafc; 
+        border-color: #cbd5e1;
+      }
+    }
+
+    &.c-btn--ghost {
+      background: transparent;
+      color: var(--color-text, #1e293b);
+      &:hover:not(:disabled) { background: #f1f5f9; }
+    }
+  }
+</style>

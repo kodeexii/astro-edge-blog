@@ -1,0 +1,220 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/ui/Button.astro';
+import Card from '../../components/ui/Card.astro';
+import Accordion from '../../components/ui/Accordion.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(product => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout title={`${product.data.name} | Astro-Edge`} description={product.data.description}>
+  <div class="product-detail">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/products">← Kembali ke Katalog</a>
+      </nav>
+
+      <div class="product-grid">
+        <!-- Bahagian Gambar (1:1 Ratio) -->
+        <div class="product-visual">
+          <Card padding={false} class="product-visual__card">
+            <div class="product-visual__image-wrapper">
+              {product.data.image ? (
+                <img src={product.data.image} alt={product.data.name} class="product-visual__img" />
+              ) : (
+                <div class="product-visual__placeholder">📦</div>
+              )}
+            </div>
+          </Card>
+        </div>
+
+        <!-- Bahagian Info -->
+        <div class="product-info">
+          <header class="product-info__header">
+            <h1 class="product-info__name">{product.data.name}</h1>
+            <p class="product-info__price text-primary">RM {product.data.price.toFixed(2)}</p>
+          </header>
+
+          <div class="product-info__status">
+            <span class:list={['stock-badge', product.data.stock > 0 ? 'stock-badge--available' : 'stock-badge--out']}>
+              {product.data.stock > 0 ? `Tersedia: ${product.data.stock} unit` : 'Habis Stok'}
+            </span>
+          </div>
+
+          <div class="product-info__description">
+            <p>{product.data.description}</p>
+          </div>
+
+          <div class="product-info__actions">
+            <Button 
+              variant="primary" 
+              class="w-full h-12 text-lg" 
+              disabled={product.data.stock <= 0}
+              id="add-to-cart"
+            >
+              {product.data.stock > 0 ? 'Tambah ke Troli' : 'Habis Stok'}
+            </Button>
+            <Button variant="outline" class="w-full h-12">Beli Sekarang</Button>
+          </div>
+
+          <div class="product-info__extra mt-8">
+            <Accordion title="Maklumat Penghantaran">
+              <p>Penghantaran percuma untuk pembelian melebihi RM100. Anggaran tempoh sampai: 3-5 hari bekerja.</p>
+            </Accordion>
+            <Accordion title="Polisi Pemulangan">
+              <p>Kami menerima pemulangan barang dalam tempoh 7 hari selepas barang diterima sekiranya terdapat kerosakan kilang.</p>
+            </Accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .product-detail {
+    padding-block: var(--section-padding-block);
+  }
+
+  .breadcrumb {
+    margin-bottom: 2rem;
+    & a {
+      text-decoration: none;
+      color: var(--color-text-light);
+      font-size: var(--fs-s);
+      font-weight: 500;
+      transition: color 0.2s;
+      &:hover { color: var(--color-primary); }
+    }
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr; /* Kembali ke 50/50 */
+    }
+  }
+
+  /* Bahagian Visual (1:1 Ratio) */
+  .product-visual {
+    position: sticky;
+    top: 2rem;
+    max-width: 500px;
+    width: 100%;
+    margin-inline: auto;
+
+    .product-visual__card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+      aspect-ratio: 1 / 1; 
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-visual__image-wrapper {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-visual__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-visual__placeholder {
+      font-size: 6rem;
+      opacity: 0.1;
+    }
+  }
+
+  /* Bahagian Info */
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .product-info__header {
+      margin-bottom: 0.5rem;
+    }
+
+    .product-info__name {
+      font-size: var(--fs-xl);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-info__price {
+      font-size: var(--fs-l);
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+
+    .product-info__description {
+      color: var(--color-text-light);
+      line-height: 1.7;
+      font-size: var(--fs-m);
+    }
+
+    .product-info__actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      @media (min-width: 480px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .product-info__extra {
+      margin-top: 2rem;
+    }
+  }
+
+  .stock-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+
+    &--available {
+      background-color: #f0fdf4;
+      color: #16a34a;
+    }
+
+    &--out {
+      background-color: #fef2f2;
+      color: #dc2626;
+    }
+  }
+
+  .mt-8 { margin-top: 2rem; }
+  .w-full { width: 100%; }
+  .h-12 { height: 3.5rem; }
+  .text-lg { font-size: 1.125rem; }
+</style>

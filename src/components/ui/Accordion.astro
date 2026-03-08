@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  class?: string;
+}
+
+const { title, class: className } = Astro.props;
+---
+
+<details class:list={['c-accordion', className]}>
+  <summary class="c-accordion__trigger">
+    {title}
+    <span class="c-accordion__icon" aria-hidden="true"></span>
+  </summary>
+  <div class="c-accordion__content">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .c-accordion {
+    border-bottom: 1px solid var(--color-border, #e2e8f0);
+    width: 100%;
+
+    .c-accordion__trigger {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
+
+      &::-webkit-details-marker { display: none; }
+      &:focus-visible { outline: 2px solid var(--color-primary, #3b82f6); outline-offset: 2px; }
+
+      .c-accordion__icon {
+        width: 1rem;
+        height: 1rem;
+        transition: transform 0.2s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &[open] .c-accordion__icon {
+      transform: rotate(180deg);
+    }
+
+    .c-accordion__content {
+      padding-bottom: 1rem;
+      color: var(--color-text-light, #64748b);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+  }
+</style>
