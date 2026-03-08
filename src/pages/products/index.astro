@@ -20,7 +20,11 @@ const products = await getCollection('products');
 					<Card class="product-item" padding={false}>
 						<div class="product-item__image-wrapper">
 							{product.data.image ? (
-								<img src={product.data.image} alt={product.data.name} class="product-item__img" />
+								<img 
+									src={product.data.image.startsWith('public') ? product.data.image.replace('public', '') : product.data.image} 
+									alt={product.data.name} 
+									class="product-item__img" 
+								/>
 							) : (
 								<div class="product-item__placeholder">📦</div>
 							)}

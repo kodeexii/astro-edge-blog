@@ -31,7 +31,11 @@ const { product } = Astro.props;
           <Card padding={false} class="product-visual__card">
             <div class="product-visual__image-wrapper">
               {product.data.image ? (
-                <img src={product.data.image} alt={product.data.name} class="product-visual__img" />
+                <img 
+                  src={product.data.image.startsWith('public') ? product.data.image.replace('public', '') : product.data.image} 
+                  alt={product.data.name} 
+                  class="product-visual__img" 
+                />
               ) : (
                 <div class="product-visual__placeholder">📦</div>
               )}
