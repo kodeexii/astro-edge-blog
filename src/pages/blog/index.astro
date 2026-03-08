@@ -55,9 +55,11 @@ const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "O
 							</p>
 							
 							<div class="pt-2">
-								<Button variant="outline" class="w-full" onclick={`window.location.href='/blog/${post.slug}'`}>
-									Baca Lanjut
-								</Button>
+								<a href={`/blog/${post.slug}`} class="w-full">
+									<Button variant="outline" class="w-full">
+										Baca Lanjut
+									</Button>
+								</a>
 							</div>
 						</div>
 					</Card>

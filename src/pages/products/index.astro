@@ -42,14 +42,15 @@ const products = await getCollection('products');
 										{product.data.stock > 0 ? `Stok: ${product.data.stock}` : 'Habis Stok'}
 									</span>
 								</div>
-								<Button 
-									variant="primary" 
-									class="w-full" 
-									disabled={product.data.stock <= 0}
-									onclick={`window.location.href='/products/${product.id}'`}
-								>
-									Lihat Detail
-								</Button>
+								<a href={`/products/${product.id}`} class="w-full">
+									<Button 
+										variant="primary" 
+										class="w-full" 
+										disabled={product.data.stock <= 0}
+									>
+										Lihat Detail
+									</Button>
+								</a>
 							</div>
 						</div>
 					</Card>
