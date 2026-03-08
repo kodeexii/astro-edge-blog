@@ -7,7 +7,7 @@ const storage =
     : {
         kind: 'github',
         repo: 'kodeexii/astro-edge-blog',
-        branchPrefix: 'draf/', // Menggunakan istilah 'draf/' untuk branch CMS
+        branchPrefix: 'draf/', // Setiap 'Save' baru akan mencadangkan branch draf
       };
 
 export default config({
@@ -16,11 +16,14 @@ export default config({
     brand: {
       name: 'Astro-Edge CMS',
     },
+    navigation: {
+      'Kandungan Web': ['posts', 'pages'],
+      'Kedai & Jualan': ['products'],
+    },
   },
   collections: {
     /**
      * Blog Posts: Untuk artikel dan berita.
-     * Disimpan dalam format Markdoc agar mudah selitkan komponen interaktif.
      */
     posts: collection({
       label: 'Blog & Artikel',
@@ -33,7 +36,6 @@ export default config({
         title: fields.slug({ name: { label: 'Tajuk Artikel' } }),
         publishedAt: fields.datetime({ 
           label: 'Tarikh & Masa Terbit',
-          description: 'Tarikh dan masa artikel ini diterbitkan',
           defaultValue: { kind: 'now' },
         }),
         status: fields.select({
@@ -50,9 +52,8 @@ export default config({
           publicPath: '/images/blog/',
         }),
         description: fields.text({ 
-          label: 'Ringkasan SEO (Automatik jika kosong)', 
+          label: 'Ringkasan SEO', 
           multiline: true,
-          description: 'Penerangan ringkas untuk Google Search'
         }),
         content: fields.markdoc({ 
           label: 'Isi Kandungan',
@@ -67,7 +68,7 @@ export default config({
     }),
 
     /**
-     * Pages: Untuk halaman umum seperti "About Us", "Contact", dll.
+     * Pages: Untuk halaman umum.
      */
     pages: collection({
       label: 'Halaman Statik',
@@ -75,7 +76,6 @@ export default config({
       path: 'src/content/pages/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title'],
       schema: {
         title: fields.slug({ name: { label: 'Tajuk Halaman' } }),
         description: fields.text({ label: 'Ringkasan SEO', multiline: true }),
@@ -84,24 +84,7 @@ export default config({
     }),
 
     /**
-     * Legal Pages: Khas untuk Privacy Policy dan Terms of Service.
-     */
-    legals: collection({
-      label: 'Legal Pages',
-      slugField: 'title',
-      path: 'src/content/legals/*',
-      format: { contentField: 'content' },
-      columns: ['title', 'lastUpdated'],
-      schema: {
-        title: fields.text({ label: 'Tajuk' }),
-        lastUpdated: fields.date({ label: 'Kemaskini Terakhir' }),
-        content: fields.markdoc({ label: 'Kandungan' }),
-      },
-    }),
-
-    /**
      * Products: Katalog produk e-commerce.
-     * Disimpan sebagai JSON untuk memudahkan pengiraan harga/logic.
      */
     products: collection({
       label: 'Katalog Produk',
@@ -111,10 +94,7 @@ export default config({
       columns: ['name', 'price', 'stock'],
       schema: {
         name: fields.text({ label: 'Nama Produk' }),
-        price: fields.number({ 
-          label: 'Harga (RM)',
-          description: 'Harga dalam Ringgit Malaysia'
-        }),
+        price: fields.number({ label: 'Harga (RM)' }),
         description: fields.text({ label: 'Penerangan Produk', multiline: true }),
         image: fields.image({
           label: 'Gambar Produk',
