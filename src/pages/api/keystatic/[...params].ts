@@ -1,4 +1,4 @@
 import { makeApi } from '@keystatic/astro/api';
-import config from '../../../keystatic.config';
+import config from '../../../../keystatic.config';
 
 export const all = makeApi(config);
