@@ -28,7 +28,8 @@ export default config({
         title: fields.slug({ name: { label: 'Title' } }),
         publishedAt: fields.datetime({ 
           label: 'Published Date',
-          description: 'Tarikh dan masa artikel ini diterbitkan'
+          description: 'Tarikh dan masa artikel ini diterbitkan',
+          defaultValue: { kind: 'now' },
         }),
         isDraft: fields.checkbox({ 
           label: 'Draft', 
