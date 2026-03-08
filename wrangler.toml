@@ -1,5 +1,5 @@
-name = "astro-edge"
-compatibility_date = "2024-11-01"
+name = "astro-edge-blog"
+compatibility_date = "2026-03-08"
 pages_build_output_dir = "./dist"
 
 [[d1_databases]]
