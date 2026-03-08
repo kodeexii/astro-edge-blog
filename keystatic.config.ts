@@ -45,7 +45,15 @@ export default config({
           multiline: true,
           description: 'Penerangan ringkas untuk Google Search'
         }),
-        content: fields.markdoc({ label: 'Content' }),
+        content: fields.markdoc({ 
+          label: 'Content',
+          options: {
+            image: {
+              directory: 'public/images/blog',
+              publicPath: '/images/blog/',
+            },
+          },
+        }),
       },
     }),
 
