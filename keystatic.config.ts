@@ -1,10 +1,16 @@
 import { config, fields, collection } from '@keystatic/core';
 
+// Logik pemilihan storan: 'local' untuk development, 'github' untuk production
+const storage =
+  process.env.NODE_ENV === 'development'
+    ? { kind: 'local' }
+    : {
+        kind: 'github',
+        repo: 'kodeexii/astro-edge-blog',
+      };
+
 export default config({
-  // Mod penyimpanan: Lokal untuk pembangunan pantas tanpa GitHub
-  storage: {
-    kind: 'local',
-  },
+  storage,
 
   collections: {
     /**
