@@ -6,8 +6,12 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Membolehkan mod Hybrid/SSR
-  adapter: cloudflare(), // Menggunakan adapter Cloudflare untuk Pages
+  output: 'server',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
   integrations: [
     markdoc(),
     react(),
@@ -16,6 +20,10 @@ export default defineConfig({
   vite: {
     ssr: {
       noExternal: ['@keystatic/core', '@keystatic/astro']
+    },
+    // Tambahan untuk memastikan auth Keystatic stabil di Cloudflare
+    optimizeDeps: {
+      exclude: ['@keystatic/core/api']
     }
   }
 });
