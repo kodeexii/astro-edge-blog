@@ -1,0 +1,63 @@
+---
+import { makePage } from '@keystatic/astro/ui';
+import config from '../../../keystatic.config';
+
+export const prerender = false;
+const Keystatic = makePage(config);
+---
+
+<Keystatic />
+
+<style is:global>
+  /* Menyorokkan butang Branch yang asal supaya editor tak keliru */
+  [data-keystatic-branch-picker] {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  /**
+   * SMART DRAF AUTOMATION
+   * Skrip ni akan paksa flow 'Save to Draft' menggunakan username GitHub secara automatik.
+   */
+  const automateWorkflow = () => {
+    // 1. Cari Nama Pengguna (Username) daripada UI Keystatic
+    // Keystatic biasanya letak nama kat bahagian akaun/avatar
+    const avatarImg = document.querySelector('img[alt*="avatar"]');
+    const userDisplayName = avatarImg?.closest('button')?.innerText || "";
+    
+    // Kita cuba bersihkan nama untuk jadi slug (cth: "Hadee Roslan" -> "hadee")
+    const username = userDisplayName.split(' ')[0].toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // 2. Jika kita kat branch 'main' (URL: /keystatic), redirect ke draf/username
+    const path = window.location.pathname;
+    if (username && path.endsWith('/keystatic')) {
+      console.log(`🚀 Automasi: Mengalihkan ${username} ke branch draf sendiri...`);
+      window.location.href = `/keystatic/branch/draf-${username}/collection/posts/create`;
+      return;
+    }
+
+    // 3. Ganti Teks Butang (Terminology)
+    const replacements = {
+      'Save': '💾 SIMPAN DRAF',
+      'Create Pull Request': '🚀 TERBITKAN KE WEBSITE',
+      'Pull Request': '🚀 TERBITKAN',
+      'Changes saved': '✅ Draf Berjaya Disimpan!',
+      'Create': '➕ TAMBAH BARU'
+    };
+
+    const elements = document.querySelectorAll('span, button, h2');
+    elements.forEach(el => {
+      const text = el.innerText.trim();
+      if (replacements[text]) {
+        el.innerText = replacements[text];
+      }
+    });
+  };
+
+  // Pantau perubahan skrin
+  const observer = new MutationObserver(automateWorkflow);
+  observer.observe(document.body, { childList: true, subtree: true });
+  
+  automateWorkflow();
+</script>
