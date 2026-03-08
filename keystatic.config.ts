@@ -12,7 +12,11 @@ const storage =
 
 export default config({
   storage,
-
+  ui: {
+    brand: {
+      name: 'Astro-Edge CMS',
+    },
+  },
   collections: {
     /**
      * Blog Posts: Untuk artikel dan berita.

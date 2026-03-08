@@ -7,7 +7,7 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 ## 🆔 1. Identiti Projek
 - **Nama Projek:** Astro-Edge (Blog + E-commerce)
 - **Framework:** Astro 5.x (Hybrid Mode)
-- **Deployment:** Cloudflare Pages (Pending)
+- **Deployment:** [Cloudflare Pages](https://astro-edge-blog.pages.dev) (Live)
 - **Source Control:** GitHub (`kodeexii/astro-edge-blog`)
 - **URL Pembangunan:** `http://localhost:4321`
 
@@ -16,16 +16,14 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 ## 🎯 2. Konteks Pembangunan Aktif
 - **Fokus Sekarang:** Pembangunan Lokal & Strategi Kandungan.
 - **Strategi Storage:** 
-  - **Lokal:** Untuk pembangunan pantas (Sekarang).
-  - **GitHub:** Untuk production & CMS di awan (Akan datang).
+  - **Lokal:** Untuk pembangunan pantas (Dev).
+  - **GitHub App:** Untuk production & CMS di awan (Live).
 - **Tugasan Rutin:**
-  - [ ] Jana 1 entri blog "Daily Recap" di akhir setiap sesi pembangunan.
+  - [x] Jana 1 entri blog "Daily Recap" di akhir setiap sesi pembangunan.
 - **Tugasan Seterusnya:** 
-  - [ ] Setup GitHub Repository & Remote.
   - [ ] Implementasi Homepage Singleton di Keystatic.
-  - [ ] Membina Halaman Butiran Produk (`products/[id].astro`).
   - [ ] Integrasi Pembayaran CHIP.
-- **Kemas Kini Terakhir:** 2026-03-01
+- **Kemas Kini Terakhir:** 2026-03-08
 
 ---
 
@@ -33,10 +31,10 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 *Sila pastikan rahsia berikut dikonfigurasi dalam fail `.env` (Rujuk `.env.example`):*
 - [ ] `CHIP_API_KEY` (Payment Gateway)
 - [ ] `RESEND_API_KEY` (Email Service)
-- [ ] `TURNSTILE_SITE_KEY` (Bot Protection)
-- [ ] `TURNSTILE_SECRET_KEY` (Bot Protection)
-- [ ] `KEYSTATIC_GITHUB_CLIENT_ID` (Keystatic Cloud/GitHub Auth)
-- [ ] `KEYSTATIC_GITHUB_CLIENT_SECRET` (Keystatic Cloud/GitHub Auth)
+- [x] `KEYSTATIC_GITHUB_CLIENT_ID` (GitHub App Auth)
+- [x] `KEYSTATIC_GITHUB_CLIENT_SECRET` (GitHub App Auth)
+- [x] `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` (GitHub App Context)
+- [x] `KEYSTATIC_SECRET` (> 32 characters)
 
 ---
 

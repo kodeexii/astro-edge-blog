@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import markdoc from '@astrojs/markdoc';
 import react from '@astrojs/react';
-import keystatic from '@keystatic/astro';
 import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
@@ -14,14 +13,13 @@ export default defineConfig({
   }),
   integrations: [
     markdoc(),
-    react(),
-    keystatic()
+    react()
+    // keystatic() dibuang untuk membolehkan custom admin page
   ],
   vite: {
     ssr: {
       noExternal: ['@keystatic/core', '@keystatic/astro']
     },
-    // Tambahan untuk memastikan auth Keystatic stabil di Cloudflare
     optimizeDeps: {
       exclude: ['@keystatic/core/api']
     }

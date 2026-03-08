@@ -1,0 +1,21 @@
+/* Custom label untuk butang Pull Request */
+button[data-keystatic-pull-request-button] {
+  font-size: 0 !important; /* Sorok teks asal */
+}
+
+button[data-keystatic-pull-request-button]::before {
+  content: "🌟 TERBITKAN KE WEBSITE" !important;
+  font-size: 14px !important; /* Munculkan teks baru */
+  visibility: visible !important;
+}
+
+/* Custom label untuk butang Create Branch */
+button[data-keystatic-create-branch-button] {
+  font-size: 0 !important;
+}
+
+button[data-keystatic-create-branch-button]::before {
+  content: "📝 BUAT DRAF BARU" !important;
+  font-size: 14px !important;
+  visibility: visible !important;
+}
