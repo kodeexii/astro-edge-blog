@@ -19,6 +19,15 @@ const posts = await getCollection('blog', ({ data }) => {
 posts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
+
+// Fungsi pembantu untuk ringkasan
+function getExcerpt(post: any) {
+  if (post.data.description) return post.data.description;
+  if (post.body) {
+    return post.body.substring(0, 120).replace(/[#*`]/g, '') + '...';
+  }
+  return 'Tiada penerangan tersedia.';
+}
 ---
 
 <Layout title="Blog | Astro-Edge" description="Baca artikel terbaru kami tentang teknologi dan perniagaan.">
@@ -51,7 +60,7 @@ const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "O
 							</h2>
 							
 							<p class="blog-desc">
-								{post.data.description || (post.body ? post.body.substring(0, 120).replace(/[#*`]/g, '') + '...' : 'Tiada penerangan tersedia.')}
+								{getExcerpt(post)}
 							</p>
 							
 							<div class="pt-2">
