@@ -1,0 +1,21 @@
+name: Auto-Merge Keystatic Drafts
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronized]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: startsWith(github.head_ref, 'draf/') # Hanya draf dari Keystatic
+    steps:
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.16.4
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "merge"
+          MERGE_LABELS: "" # Biar kosong untuk merge semua draf
+          MERGE_FORK: "false"
+          MERGE_REQUIRED_APPROVALS: "0"
