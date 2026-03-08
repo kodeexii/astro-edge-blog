@@ -7,7 +7,7 @@ const storage =
     : {
         kind: 'github',
         repo: 'kodeexii/astro-edge-blog',
-        branchPrefix: 'cms/',
+        branchPrefix: 'draf/', // Menggunakan istilah 'draf/' untuk branch CMS
       };
 
 export default config({
@@ -19,36 +19,39 @@ export default config({
      * Disimpan dalam format Markdoc agar mudah selitkan komponen interaktif.
      */
     posts: collection({
-      label: 'Blog Posts',
+      label: 'Blog & Artikel',
       slugField: 'title',
       path: 'src/content/blog/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'publishedAt'],
+      columns: ['title', 'status', 'publishedAt'],
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
+        title: fields.slug({ name: { label: 'Tajuk Artikel' } }),
         publishedAt: fields.datetime({ 
-          label: 'Published Date',
+          label: 'Tarikh & Masa Terbit',
           description: 'Tarikh dan masa artikel ini diterbitkan',
           defaultValue: { kind: 'now' },
         }),
-        isDraft: fields.checkbox({ 
-          label: 'Simpan sebagai Draf?', 
-          defaultValue: true,
-          description: 'Jika ditanda, artikel ini TIDAK akan muncul di website utama. Ia hanya boleh dilihat di laman Pratonton.'
+        status: fields.select({
+          label: 'Status Penerbitan',
+          options: [
+            { label: '🌑 Draf (Hanya di Pratonton)', value: 'draft' },
+            { label: '🌟 Terbit (Live di Website)', value: 'published' },
+          ],
+          defaultValue: 'draft',
         }),
         coverImage: fields.image({
-          label: 'Cover Image',
+          label: 'Gambar Muka Depan',
           directory: 'public/images/blog',
           publicPath: '/images/blog/',
         }),
         description: fields.text({ 
-          label: 'SEO Description', 
+          label: 'Ringkasan SEO (Automatik jika kosong)', 
           multiline: true,
           description: 'Penerangan ringkas untuk Google Search'
         }),
         content: fields.markdoc({ 
-          label: 'Content',
+          label: 'Isi Kandungan',
           options: {
             image: {
               directory: 'public/images/blog',
@@ -63,16 +66,16 @@ export default config({
      * Pages: Untuk halaman umum seperti "About Us", "Contact", dll.
      */
     pages: collection({
-      label: 'Pages',
+      label: 'Halaman Statik',
       slugField: 'title',
       path: 'src/content/pages/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
       columns: ['title'],
       schema: {
-        title: fields.slug({ name: { label: 'Title' } }),
-        description: fields.text({ label: 'SEO Description', multiline: true }),
-        content: fields.markdoc({ label: 'Content' }),
+        title: fields.slug({ name: { label: 'Tajuk Halaman' } }),
+        description: fields.text({ label: 'Ringkasan SEO', multiline: true }),
+        content: fields.markdoc({ label: 'Kandungan' }),
       },
     }),
 
@@ -86,9 +89,9 @@ export default config({
       format: { contentField: 'content' },
       columns: ['title', 'lastUpdated'],
       schema: {
-        title: fields.text({ label: 'Title' }),
-        lastUpdated: fields.date({ label: 'Last Updated' }),
-        content: fields.markdoc({ label: 'Content' }),
+        title: fields.text({ label: 'Tajuk' }),
+        lastUpdated: fields.date({ label: 'Kemaskini Terakhir' }),
+        content: fields.markdoc({ label: 'Kandungan' }),
       },
     }),
 
@@ -97,24 +100,24 @@ export default config({
      * Disimpan sebagai JSON untuk memudahkan pengiraan harga/logic.
      */
     products: collection({
-      label: 'Products',
+      label: 'Katalog Produk',
       slugField: 'name',
       path: 'src/content/products/*',
       format: { data: 'json' },
       columns: ['name', 'price', 'stock'],
       schema: {
-        name: fields.text({ label: 'Product Name' }),
+        name: fields.text({ label: 'Nama Produk' }),
         price: fields.number({ 
-          label: 'Price (MYR)',
+          label: 'Harga (RM)',
           description: 'Harga dalam Ringgit Malaysia'
         }),
-        description: fields.text({ label: 'Description', multiline: true }),
+        description: fields.text({ label: 'Penerangan Produk', multiline: true }),
         image: fields.image({
-          label: 'Product Image',
+          label: 'Gambar Produk',
           directory: 'public/images/products',
           publicPath: '/images/products/',
         }),
-        stock: fields.integer({ label: 'Stock Quantity', defaultValue: 10 }),
+        stock: fields.integer({ label: 'Baki Stok', defaultValue: 10 }),
       },
     }),
   },
