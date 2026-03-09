@@ -81,7 +81,7 @@ export default config({
       format: { data: 'json' },
       columns: ['name', 'price', 'stock'],
       schema: {
-        name: fields.text({ label: 'Nama Produk' }),
+        name: fields.slug({ name: { label: 'Nama Produk' } }),
         price: fields.number({ label: 'Harga (RM)' }),
         description: fields.text({ label: 'Penerangan Produk', multiline: true }),
         image: fields.image({
