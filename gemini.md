@@ -9,6 +9,7 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - **Framework:** Astro 5.x (Hybrid Mode)
 - **Deployment:** [Cloudflare Pages](https://astro-edge-blog.pages.dev) (Live)
 - **Source Control:** GitHub (`kodeexii/astro-edge-blog`)
+- **Fokus Strategik:** **Single-User Platform** (Optimasi untuk kepantasan dan kawalan penuh).
 - **URL Pembangunan:** `http://localhost:4321`
 
 ---
@@ -17,7 +18,7 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - **Fokus Sekarang:** Pembangunan Lokal & Strategi Kandungan.
 - **Strategi Storage:** 
   - **Lokal:** Untuk pembangunan pantas (Dev).
-  - **GitHub App:** Untuk production & CMS di awan (Live).
+  - **GitHub (Direct to Main):** Untuk kemas kini kandungan yang pantas tanpa Pull Request.
 - **Tugasan Rutin:**
   - [x] Jana 1 entri blog "Daily Recap" di akhir setiap sesi pembangunan.
 - **Tugasan Seterusnya:** 
@@ -35,6 +36,7 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - [x] `KEYSTATIC_GITHUB_CLIENT_SECRET` (GitHub App Auth)
 - [x] `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` (GitHub App Context)
 - [x] `KEYSTATIC_SECRET` (> 32 characters)
+- [x] `GEMINI_API_KEY` (Image Generation / Nano Banana Pro)
 
 ---
 
@@ -56,6 +58,7 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - 📂 `src/content/legals/` — Polisi & Terma (Markdoc).
 - 📂 `src/styles/` — `global.css` & Variables.
 - 📂 `src/pages/` — Routing & Acuan (Layouts).
+- 📂 `local-content/` — Aset visual & kandungan untuk pembangunan lokal.
 
 ---
 
@@ -82,6 +85,9 @@ Fail ini merupakan "Source of Truth" bagi status semasa projek. Sila kemas kini 
 - [x] Halaman Katalog Produk & Detail Produk dengan sistem Aspect Ratio (3:4 & 1:1).
 - [x] Infrastruktur MCP (Astro Docs) & Modular Skills (Frontend Design) diaktifkan.
 - [x] Strategi Pengasingan Kod & Kandungan (Branching dev/main) diimplementasi.
+- [x] Integrasi `GEMINI_API_KEY` untuk penjanaan imej (Nano Banana Pro).
+- [x] Pemasangan `uv` secara lokal untuk pengurusan dependensi Python yang pantas.
+- [x] Penjanaan aset visual pertama menggunakan AI untuk folder `local-content/`.
 
 ---
 
@@ -94,23 +100,23 @@ Untuk mengelakkan konflik antara pembangunan kod dan kemas kini CMS:
 
 ---
 
-## 📝 Daily Recap: Hari #2 - "The Birth of a Design System"
+## 📝 Daily Recap: Hari #3 - "The Power of Generative Assets"
 
-Hari ini bukan sekadar menulis kod, tapi kita telah melahirkan **Design System** kita sendiri yang dinamakan **Astro Edge UI**. 
+Hari ini kita telah mengaktifkan kuasa AI secara langsung dalam *workflow* pembangunan kita.
 
 ### 🛠️ Apa yang kita capai:
-1.  **UI Components Alpha:** Kita dah ada 11 komponen teras (Button, Card, Input, Accordion, Dialog, Switch, Tabs, Dropdown, Sheet, Toast, Skeleton) yang dibina 100% menggunakan HTML/JS/CSS tulen. Ringan, laju, dan "future-proof".
-2.  **Product Engine:** Katalog produk kini nampak profesional dengan nisbah imej 3:4 (Listing) dan 1:1 (Detail). Imej laptop "Ultra-Edge Pro" kini menjadi penanda aras kualiti visual kita.
-3.  **Infrastruktur Pintar:** Kita dah pasang folder `.gemini` yang mengandungi konfigurasi **MCP Astro Docs** dan **Modular Skills**. Mat Gem sekarang dah ada "kitab" Frontend Design untuk pastikan kod yang dihasilkan sentiasa premium.
+1.  **AI Image Pipeline:** Mat Gem dah ada "mata" dan "tangan" kreatif melalui **Nano Banana Pro**. Kita berjaya jana imej sinematik pertama (Lelaki 50-an & One Piece) yang disimpan terus ke `local-content/`.
+2.  **Tooling Upgrade (uv):** Penggunaan `uv` sebagai pengurus dependensi Python menjadikan skrip kita lebih ringan dan pantas. Tiada lagi isu "Module Not Found".
+3.  **CMS Reality Check:** Kita sedar yang mod **GitHub Branching** di Keystatic agak "berat" untuk pengguna biasa (Editors). Kita dah ada strategi untuk memudahkannya di masa depan (sama ada guna mod Direct atau Keystatic Cloud).
 
 ### 🧠 Nota Teknikal Mat Gem:
--   **Native Nesting Lesson:** Kita belajar yang `&__` (Sass style) tak jalan dalam native CSS Astro. Kita dah beralih ke nama kelas penuh untuk nesting yang lebih stabil.
--   **Accessibility First:** Setiap komponen interaktif kita dah ada "nyawa" dan "suara" (ARIA) supaya semua orang boleh guna website ni nanti.
+-   **Security First:** Kunci API kini selamat dalam `.env` dan di-ignore oleh git. Jangan sesekali biarkan kunci ni "terbabas" ke GitHub Repo.
+-   **Local vs Remote Assets:** Imej yang di-jana AI disimpan dalam `local-content/` untuk memastikan repo kita tak jadi terlalu besar dengan aset yang belum diproses.
 
 ### 📅 Plan Untuk Sesi Seterusnya:
--   [ ] Setup GitHub Remote & Initial Push.
+-   [ ] Setup GitHub Remote & Initial Push (Tunda dari semalam).
 -   [ ] Implementasi Homepage Singleton di Keystatic.
--   [ ] Integrasi Pembayaran CHIP (The big one!).
+-   [ ] Integrasi Pembayaran CHIP.
 
 ---
 > *Nota: Mat Gem (Gemini CLI) sentiasa memantau fail ini untuk memastikan arahan dipatuhi.*
