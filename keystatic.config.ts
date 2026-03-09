@@ -1,4 +1,4 @@
-import { config, fields, collection, singleton } from '@keystatic/core';
+import { config, fields, collection } from '@keystatic/core';
 
 // Logik pemilihan storan: 'local' untuk development, 'github' untuk production
 const storage =
@@ -14,15 +14,13 @@ export default config({
   storage,
   ui: {
     brand: {
-      name: 'Astro-Edge CMS <script src="/admin-fix.js" defer></script>',
-    },
-    navigation: {
-      'Kandungan Web': ['posts', 'pages'],
-      'Kedai & Jualan': ['products'],
-      'Pentadbiran': ['admin_guide', 'system_tools'],
+      name: 'Astro-Edge CMS',
     },
   },
   collections: {
+    /**
+     * Blog Posts: Untuk artikel dan berita.
+     */
     posts: collection({
       label: 'Blog & Artikel',
       slugField: 'title',
@@ -57,6 +55,9 @@ export default config({
       },
     }),
 
+    /**
+     * Pages: Untuk halaman umum.
+     */
     pages: collection({
       label: 'Halaman Statik',
       slugField: 'title',
@@ -70,6 +71,9 @@ export default config({
       },
     }),
 
+    /**
+     * Products: Katalog produk e-commerce.
+     */
     products: collection({
       label: 'Katalog Produk',
       slugField: 'name',
@@ -86,23 +90,6 @@ export default config({
           publicPath: '/images/products/',
         }),
         stock: fields.integer({ label: 'Baki Stok', defaultValue: 10 }),
-      },
-    }),
-  },
-
-  singletons: {
-    admin_guide: singleton({
-      label: 'Panduan Editor',
-      path: 'src/content/admin-guide',
-      schema: {
-        guide: fields.markdoc({ label: 'Arahan Penting' }),
-      },
-    }),
-    system_tools: singleton({
-      label: 'Reset & Penyelenggaraan',
-      path: 'src/content/system-tools',
-      schema: {
-        info: fields.empty(), // Cuma tempat letak butang
       },
     }),
   },
