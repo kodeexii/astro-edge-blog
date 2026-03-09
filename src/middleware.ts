@@ -9,37 +9,53 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const automationScript = `
       <script>
         (function() {
-          const automate = () => {
+          const injectResetButton = () => {
             const path = window.location.pathname;
             const branchMatch = path.match(/\\/branch\\/([^\\/]+)/);
             const currentBranch = branchMatch ? decodeURIComponent(branchMatch[1]) : "";
 
+            // Jika dalam branch draf dan butang belum ada
             if (currentBranch.startsWith('draf/') && !document.getElementById('reset-branch-btn')) {
-              const actionBar = document.querySelector('header') || document.body;
-              const resetBtn = document.createElement('button');
-              resetBtn.id = 'reset-branch-btn';
-              resetBtn.innerText = '🗑️ RESET DRAF INI';
-              resetBtn.style = 'background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-weight: bold; font-size: 12px;';
+              // Cari toolbar utama Keystatic (biasanya ada elemen butang avatar atau logo)
+              const container = document.querySelector('nav') || document.querySelector('header') || document.body;
               
-              resetBtn.onclick = async () => {
-                if (confirm('Ini akan memadam semua kerja draf dan menyelaraskannya semula dengan website LIVE. Pasti?')) {
-                  resetBtn.innerText = '⏳ Sedang Reset...';
-                  const res = await fetch('/api/reset-branch', {
-                    method: 'POST',
-                    body: JSON.stringify({ branch: currentBranch })
-                  });
-                  if (res.ok) {
-                    alert('Draf berjaya diperbaharui! Halaman akan dimuat semula.');
-                    window.location.reload();
-                  } else {
-                    alert('Gagal reset draf. Sila cuba lagi.');
-                    resetBtn.innerText = '🗑️ RESET DRAF INI';
+              if (container) {
+                const resetBtn = document.createElement('button');
+                resetBtn.id = 'reset-branch-btn';
+                resetBtn.innerText = '🗑️ RESET DRAF';
+                resetBtn.style = 'background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin: 10px; font-weight: bold; font-size: 11px; z-index: 9999; position: relative;';
+                
+                resetBtn.onclick = async (e) => {
+                  e.preventDefault();
+                  if (confirm('Ini akan memadam semua kerja draf dan menyelaraskannya semula dengan website LIVE. Pasti?')) {
+                    resetBtn.innerText = '⏳ Sedang Reset...';
+                    try {
+                      const res = await fetch('/api/reset-branch', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ branch: currentBranch })
+                      });
+                      if (res.ok) {
+                        alert('Draf berjaya diperbaharui!');
+                        window.location.reload();
+                      } else {
+                        alert('Gagal reset draf. Sila cuba lagi.');
+                        resetBtn.innerText = '🗑️ RESET DRAF';
+                      }
+                    } catch (err) {
+                      alert('Ralat teknikal: ' + err.message);
+                      resetBtn.innerText = '🗑️ RESET DRAF';
+                    }
                   }
-                }
-              };
-              actionBar.appendChild(resetBtn);
+                };
+                
+                // Masukkan butang di permulaan container supaya nampak jelas
+                container.prepend(resetBtn);
+                console.log('✅ Reset button injected into:', container.tagName);
+              }
             }
 
+            // Penterjemahan Label
             const replacements = {
               'Create Pull Request': '🚀 TERBITKAN KE WEBSITE',
               'Pull Request': '🚀 TERBITKAN',
@@ -53,9 +69,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
             });
           };
 
-          const observer = new MutationObserver(automate);
-          observer.observe(document.body, { childList: true, subtree: true });
-          automate();
+          // Guna interval sikit sebab Keystatic ni lambat render
+          setInterval(injectResetButton, 2000);
+          injectResetButton();
         })();
       </script>
     `;
