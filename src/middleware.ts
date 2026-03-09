@@ -10,12 +10,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
       <script>
         (function() {
           const automate = () => {
-            // 1. Cari Username & Branch
             const path = window.location.pathname;
             const branchMatch = path.match(/\\/branch\\/([^\\/]+)/);
             const currentBranch = branchMatch ? decodeURIComponent(branchMatch[1]) : "";
 
-            // 2. Tambah Butang Reset jika dalam branch draf
             if (currentBranch.startsWith('draf/') && !document.getElementById('reset-branch-btn')) {
               const actionBar = document.querySelector('header') || document.body;
               const resetBtn = document.createElement('button');
@@ -24,17 +22,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
               resetBtn.style = 'background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-weight: bold; font-size: 12px;';
               
               resetBtn.onclick = async () => {
-                if (confirm('AMARAN: Ini akan memadam SEMUA perubahan yang belum diterbitkan dalam draf ini. Pasti?')) {
-                  resetBtn.innerText = '⌛ Memadam...';
+                if (confirm('Ini akan memadam semua kerja draf dan menyelaraskannya semula dengan website LIVE. Pasti?')) {
+                  resetBtn.innerText = '⏳ Sedang Reset...';
                   const res = await fetch('/api/reset-branch', {
                     method: 'POST',
                     body: JSON.stringify({ branch: currentBranch })
                   });
                   if (res.ok) {
-                    alert('Draf berjaya dipadam. Sistem akan dimuat semula.');
-                    window.location.href = '/keystatic';
+                    alert('Draf berjaya diperbaharui! Halaman akan dimuat semula.');
+                    window.location.reload();
                   } else {
-                    alert('Gagal memadam draf. Sila cuba lagi.');
+                    alert('Gagal reset draf. Sila cuba lagi.');
                     resetBtn.innerText = '🗑️ RESET DRAF INI';
                   }
                 }
@@ -42,7 +40,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
               actionBar.appendChild(resetBtn);
             }
 
-            // 3. Ganti Label Butang (Terminology)
             const replacements = {
               'Create Pull Request': '🚀 TERBITKAN KE WEBSITE',
               'Pull Request': '🚀 TERBITKAN',
